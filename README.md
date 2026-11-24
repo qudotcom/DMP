@@ -29,6 +29,7 @@ The model is solved exactly with Gurobi. The Pareto front comes from the epsilon
 Requires Python 3, `gurobipy` 13 with a licence that is not size-limited (an academic licence works), and `matplotlib`.
 
 ```
+git clone https://github.com/qudotcom/DMP.git && cd DMP
 python staffing.py toy_instance.json --prefix toy_        # whole front -> toy_front.json, toy_pareto.png, toy_schedule.png
 python staffing.py toy_instance.json --plan 2 3           # schedule of the point with <= 2 projects/employee and <= 3-day projects
 python staffing.py large_instance.json --resume old.log   # continue an interrupted run from its progress log
