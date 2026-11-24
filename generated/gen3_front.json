@@ -1,0 +1,157 @@
+[
+ {
+  "profit": 180,
+  "max_projects_per_employee": 5,
+  "max_duration": 5
+ },
+ {
+  "profit": 180,
+  "max_projects_per_employee": 4,
+  "max_duration": 6
+ },
+ {
+  "profit": 177,
+  "max_projects_per_employee": 4,
+  "max_duration": 5
+ },
+ {
+  "profit": 175,
+  "max_projects_per_employee": 6,
+  "max_duration": 3
+ },
+ {
+  "profit": 175,
+  "max_projects_per_employee": 5,
+  "max_duration": 4
+ },
+ {
+  "profit": 172,
+  "max_projects_per_employee": 4,
+  "max_duration": 4
+ },
+ {
+  "profit": 170,
+  "max_projects_per_employee": 5,
+  "max_duration": 3
+ },
+ {
+  "profit": 170,
+  "max_projects_per_employee": 3,
+  "max_duration": 7
+ },
+ {
+  "profit": 167,
+  "max_projects_per_employee": 3,
+  "max_duration": 6
+ },
+ {
+  "profit": 165,
+  "max_projects_per_employee": 3,
+  "max_duration": 5
+ },
+ {
+  "profit": 155,
+  "max_projects_per_employee": 3,
+  "max_duration": 4
+ },
+ {
+  "profit": 151,
+  "max_projects_per_employee": 4,
+  "max_duration": 3
+ },
+ {
+  "profit": 143,
+  "max_projects_per_employee": 2,
+  "max_duration": 11
+ },
+ {
+  "profit": 140,
+  "max_projects_per_employee": 2,
+  "max_duration": 8
+ },
+ {
+  "profit": 132,
+  "max_projects_per_employee": 2,
+  "max_duration": 7
+ },
+ {
+  "profit": 125,
+  "max_projects_per_employee": 3,
+  "max_duration": 3
+ },
+ {
+  "profit": 120,
+  "max_projects_per_employee": 2,
+  "max_duration": 5
+ },
+ {
+  "profit": 112,
+  "max_projects_per_employee": 2,
+  "max_duration": 4
+ },
+ {
+  "profit": 110,
+  "max_projects_per_employee": 5,
+  "max_duration": 2
+ },
+ {
+  "profit": 100,
+  "max_projects_per_employee": 4,
+  "max_duration": 2
+ },
+ {
+  "profit": 94,
+  "max_projects_per_employee": 1,
+  "max_duration": 11
+ },
+ {
+  "profit": 90,
+  "max_projects_per_employee": 1,
+  "max_duration": 8
+ },
+ {
+  "profit": 85,
+  "max_projects_per_employee": 2,
+  "max_duration": 3
+ },
+ {
+  "profit": 80,
+  "max_projects_per_employee": 3,
+  "max_duration": 2
+ },
+ {
+  "profit": 80,
+  "max_projects_per_employee": 1,
+  "max_duration": 7
+ },
+ {
+  "profit": 65,
+  "max_projects_per_employee": 1,
+  "max_duration": 4
+ },
+ {
+  "profit": 60,
+  "max_projects_per_employee": 2,
+  "max_duration": 2
+ },
+ {
+  "profit": 45,
+  "max_projects_per_employee": 1,
+  "max_duration": 3
+ },
+ {
+  "profit": 35,
+  "max_projects_per_employee": 1,
+  "max_duration": 2
+ },
+ {
+  "profit": 20,
+  "max_projects_per_employee": 2,
+  "max_duration": 1
+ },
+ {
+  "profit": 10,
+  "max_projects_per_employee": 1,
+  "max_duration": 1
+ }
+]

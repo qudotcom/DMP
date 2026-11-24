@@ -1,0 +1,35 @@
+Set parameter Username
+Set parameter LicenseID to value 2880001
+Academic license - for non-commercial use only - expires 2027-10-30
+[8/48] Pmax<=1 Dmax<=8 status=2 solve=0.1s elapsed=0s -> profit=34 P=1 D=5
+[4/48] Pmax<=1 Dmax<=4 status=2 solve=0.1s elapsed=0s -> profit=30 P=1 D=3
+[2/48] Pmax<=1 Dmax<=2 status=2 solve=0.1s elapsed=0s -> profit=20 P=1 D=2
+[1/48] Pmax<=1 Dmax<=1 status=2 solve=0.0s elapsed=0s -> profit=10 P=1 D=1
+[16/48] Pmax<=2 Dmax<=8 status=2 solve=0.3s elapsed=1s -> profit=57 P=2 D=5
+[12/48] Pmax<=2 Dmax<=4 status=2 solve=0.2s elapsed=1s -> profit=52 P=2 D=3
+[10/48] Pmax<=2 Dmax<=2 status=2 solve=0.0s elapsed=1s -> profit=20 P=1 D=2
+[9/48] Pmax<=2 Dmax<=1 status=2 solve=0.0s elapsed=1s -> profit=20 P=2 D=1
+[24/48] Pmax<=3 Dmax<=8 status=2 solve=0.1s elapsed=1s -> profit=72 P=3 D=5
+[20/48] Pmax<=3 Dmax<=4 status=2 solve=0.1s elapsed=1s -> profit=72 P=3 D=3
+[18/48] Pmax<=3 Dmax<=2 status=2 solve=0.0s elapsed=1s -> profit=20 P=2 D=2
+[17/48] Pmax<=3 Dmax<=1 status=2 solve=0.0s elapsed=1s -> profit=20 P=2 D=1
+[32/48] Pmax<=4 Dmax<=8 status=2 solve=0.1s elapsed=1s -> profit=76 P=4 D=3
+[26/48] Pmax<=4 Dmax<=2 status=2 solve=0.0s elapsed=1s -> profit=20 P=2 D=2
+[25/48] Pmax<=4 Dmax<=1 status=2 solve=0.0s elapsed=1s -> profit=20 P=2 D=1
+[40/48] Pmax<=5 Dmax<=8 status=2 solve=0.1s elapsed=1s -> profit=76 P=4 D=3
+[34/48] Pmax<=5 Dmax<=2 status=2 solve=0.0s elapsed=1s -> profit=20 P=2 D=2
+[33/48] Pmax<=5 Dmax<=1 status=2 solve=0.0s elapsed=1s -> profit=20 P=2 D=1
+[48/48] Pmax<=6 Dmax<=8 status=2 solve=0.1s elapsed=2s -> profit=76 P=4 D=3
+[42/48] Pmax<=6 Dmax<=2 status=2 solve=0.0s elapsed=2s -> profit=20 P=2 D=2
+[41/48] Pmax<=6 Dmax<=1 status=2 solve=0.0s elapsed=2s -> profit=20 P=2 D=1
+front: 9 points in 1.7s
+profit=   76  maxProj/emp=4  maxDuration=3
+profit=   72  maxProj/emp=3  maxDuration=3
+profit=   57  maxProj/emp=2  maxDuration=5
+profit=   52  maxProj/emp=2  maxDuration=3
+profit=   34  maxProj/emp=1  maxDuration=5
+profit=   30  maxProj/emp=1  maxDuration=3
+profit=   20  maxProj/emp=2  maxDuration=1
+profit=   20  maxProj/emp=1  maxDuration=2
+profit=   10  maxProj/emp=1  maxDuration=1
+wrote gen1_front.json, gen1_pareto.png, gen1_schedule.png

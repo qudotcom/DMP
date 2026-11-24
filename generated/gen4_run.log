@@ -1,0 +1,134 @@
+Set parameter Username
+Set parameter LicenseID to value 2880001
+Academic license - for non-commercial use only - expires 2027-10-30
+[16/192] Pmax<=1 Dmax<=16 status=2 solve=0.3s elapsed=0s -> profit=100 P=1 D=12
+[11/192] Pmax<=1 Dmax<=11 status=2 solve=0.3s elapsed=1s -> profit=100 P=1 D=8
+[7/192] Pmax<=1 Dmax<=7 status=2 solve=0.3s elapsed=1s -> profit=90 P=1 D=7
+[6/192] Pmax<=1 Dmax<=6 status=2 solve=0.3s elapsed=1s -> profit=90 P=1 D=6
+[5/192] Pmax<=1 Dmax<=5 status=2 solve=0.7s elapsed=2s -> profit=65 P=1 D=5
+[4/192] Pmax<=1 Dmax<=4 status=2 solve=0.4s elapsed=2s -> profit=50 P=1 D=3
+[2/192] Pmax<=1 Dmax<=2 status=2 solve=0.2s elapsed=3s -> profit=35 P=1 D=2
+[1/192] Pmax<=1 Dmax<=1 status=2 solve=0.0s elapsed=3s -> profit=0 P=0 D=0
+[32/192] Pmax<=2 Dmax<=16 status=2 solve=0.6s elapsed=3s -> profit=179 P=2 D=8
+[23/192] Pmax<=2 Dmax<=7 status=2 solve=1.1s elapsed=4s -> profit=167 P=2 D=7
+[22/192] Pmax<=2 Dmax<=6 status=2 solve=0.8s elapsed=5s -> profit=160 P=2 D=6
+[21/192] Pmax<=2 Dmax<=5 status=2 solve=1.0s elapsed=6s -> profit=117 P=2 D=5
+[20/192] Pmax<=2 Dmax<=4 status=2 solve=0.7s elapsed=7s -> profit=90 P=2 D=4
+[19/192] Pmax<=2 Dmax<=3 status=2 solve=0.4s elapsed=7s -> profit=75 P=2 D=3
+[18/192] Pmax<=2 Dmax<=2 status=2 solve=0.2s elapsed=7s -> profit=50 P=2 D=2
+[17/192] Pmax<=2 Dmax<=1 status=2 solve=0.0s elapsed=7s -> profit=0 P=0 D=0
+[48/192] Pmax<=3 Dmax<=16 status=2 solve=0.8s elapsed=8s -> profit=216 P=3 D=7
+[38/192] Pmax<=3 Dmax<=6 status=2 solve=1.0s elapsed=9s -> profit=198 P=3 D=6
+[37/192] Pmax<=3 Dmax<=5 status=2 solve=1.7s elapsed=11s -> profit=154 P=3 D=5
+[36/192] Pmax<=3 Dmax<=4 status=2 solve=0.9s elapsed=12s -> profit=125 P=3 D=4
+[35/192] Pmax<=3 Dmax<=3 status=2 solve=0.4s elapsed=12s -> profit=100 P=3 D=3
+[34/192] Pmax<=3 Dmax<=2 status=2 solve=0.2s elapsed=12s -> profit=60 P=3 D=2
+[33/192] Pmax<=3 Dmax<=1 status=2 solve=0.0s elapsed=12s -> profit=0 P=0 D=0
+[64/192] Pmax<=4 Dmax<=16 status=2 solve=0.5s elapsed=13s -> profit=222 P=4 D=8
+[55/192] Pmax<=4 Dmax<=7 status=2 solve=0.6s elapsed=14s -> profit=219 P=4 D=7
+[54/192] Pmax<=4 Dmax<=6 status=2 solve=1.2s elapsed=15s -> profit=205 P=4 D=6
+[53/192] Pmax<=4 Dmax<=5 status=2 solve=2.5s elapsed=17s -> profit=176 P=4 D=5
+[52/192] Pmax<=4 Dmax<=4 status=2 solve=1.4s elapsed=19s -> profit=155 P=4 D=4
+[51/192] Pmax<=4 Dmax<=3 status=2 solve=0.3s elapsed=19s -> profit=100 P=3 D=3
+[50/192] Pmax<=4 Dmax<=2 status=2 solve=0.2s elapsed=19s -> profit=60 P=3 D=2
+[49/192] Pmax<=4 Dmax<=1 status=2 solve=0.0s elapsed=19s -> profit=0 P=0 D=0
+[80/192] Pmax<=5 Dmax<=16 status=2 solve=0.4s elapsed=20s -> profit=222 P=4 D=9
+[72/192] Pmax<=5 Dmax<=8 status=2 solve=0.4s elapsed=20s -> profit=222 P=4 D=8
+[71/192] Pmax<=5 Dmax<=7 status=2 solve=0.5s elapsed=20s -> profit=219 P=4 D=7
+[70/192] Pmax<=5 Dmax<=6 status=2 solve=0.7s elapsed=21s -> profit=208 P=5 D=6
+[69/192] Pmax<=5 Dmax<=5 status=2 solve=1.1s elapsed=22s -> profit=183 P=5 D=5
+[68/192] Pmax<=5 Dmax<=4 status=2 solve=1.0s elapsed=23s -> profit=165 P=5 D=4
+[67/192] Pmax<=5 Dmax<=3 status=2 solve=0.3s elapsed=24s -> profit=100 P=3 D=3
+[66/192] Pmax<=5 Dmax<=2 status=2 solve=0.3s elapsed=24s -> profit=60 P=3 D=2
+[65/192] Pmax<=5 Dmax<=1 status=2 solve=0.0s elapsed=24s -> profit=0 P=0 D=0
+[96/192] Pmax<=6 Dmax<=16 status=2 solve=0.3s elapsed=24s -> profit=222 P=4 D=8
+[87/192] Pmax<=6 Dmax<=7 status=2 solve=0.5s elapsed=25s -> profit=219 P=4 D=7
+[86/192] Pmax<=6 Dmax<=6 status=2 solve=0.7s elapsed=25s -> profit=208 P=5 D=6
+[85/192] Pmax<=6 Dmax<=5 status=2 solve=1.1s elapsed=27s -> profit=183 P=5 D=5
+[84/192] Pmax<=6 Dmax<=4 status=2 solve=0.9s elapsed=27s -> profit=167 P=6 D=4
+[83/192] Pmax<=6 Dmax<=3 status=2 solve=0.3s elapsed=28s -> profit=100 P=3 D=3
+[82/192] Pmax<=6 Dmax<=2 status=2 solve=0.3s elapsed=28s -> profit=60 P=3 D=2
+[81/192] Pmax<=6 Dmax<=1 status=2 solve=0.0s elapsed=28s -> profit=0 P=0 D=0
+[112/192] Pmax<=7 Dmax<=16 status=2 solve=0.4s elapsed=28s -> profit=222 P=4 D=9
+[104/192] Pmax<=7 Dmax<=8 status=2 solve=0.4s elapsed=29s -> profit=222 P=4 D=8
+[103/192] Pmax<=7 Dmax<=7 status=2 solve=0.6s elapsed=29s -> profit=219 P=4 D=7
+[102/192] Pmax<=7 Dmax<=6 status=2 solve=0.7s elapsed=30s -> profit=208 P=5 D=6
+[101/192] Pmax<=7 Dmax<=5 status=2 solve=1.2s elapsed=31s -> profit=183 P=5 D=5
+[100/192] Pmax<=7 Dmax<=4 status=2 solve=1.0s elapsed=32s -> profit=167 P=6 D=4
+[99/192] Pmax<=7 Dmax<=3 status=2 solve=0.4s elapsed=33s -> profit=100 P=3 D=3
+[98/192] Pmax<=7 Dmax<=2 status=2 solve=0.3s elapsed=33s -> profit=60 P=3 D=2
+[97/192] Pmax<=7 Dmax<=1 status=2 solve=0.0s elapsed=33s -> profit=0 P=0 D=0
+[128/192] Pmax<=8 Dmax<=16 status=2 solve=0.4s elapsed=33s -> profit=222 P=4 D=8
+[119/192] Pmax<=8 Dmax<=7 status=2 solve=0.5s elapsed=34s -> profit=219 P=4 D=7
+[118/192] Pmax<=8 Dmax<=6 status=2 solve=0.5s elapsed=34s -> profit=208 P=5 D=6
+[117/192] Pmax<=8 Dmax<=5 status=2 solve=1.1s elapsed=35s -> profit=183 P=5 D=5
+[116/192] Pmax<=8 Dmax<=4 status=2 solve=0.9s elapsed=36s -> profit=167 P=6 D=4
+[115/192] Pmax<=8 Dmax<=3 status=2 solve=0.3s elapsed=37s -> profit=100 P=3 D=3
+[114/192] Pmax<=8 Dmax<=2 status=2 solve=0.3s elapsed=37s -> profit=60 P=3 D=2
+[113/192] Pmax<=8 Dmax<=1 status=2 solve=0.0s elapsed=37s -> profit=0 P=0 D=0
+[144/192] Pmax<=9 Dmax<=16 status=2 solve=0.4s elapsed=37s -> profit=222 P=4 D=10
+[137/192] Pmax<=9 Dmax<=9 status=2 solve=0.3s elapsed=38s -> profit=222 P=4 D=8
+[135/192] Pmax<=9 Dmax<=7 status=2 solve=0.6s elapsed=38s -> profit=219 P=4 D=7
+[134/192] Pmax<=9 Dmax<=6 status=2 solve=0.8s elapsed=39s -> profit=208 P=5 D=6
+[133/192] Pmax<=9 Dmax<=5 status=2 solve=1.0s elapsed=40s -> profit=183 P=5 D=5
+[132/192] Pmax<=9 Dmax<=4 status=2 solve=1.0s elapsed=41s -> profit=167 P=6 D=4
+[131/192] Pmax<=9 Dmax<=3 status=2 solve=0.3s elapsed=41s -> profit=100 P=3 D=3
+[130/192] Pmax<=9 Dmax<=2 status=2 solve=0.2s elapsed=42s -> profit=60 P=3 D=2
+[129/192] Pmax<=9 Dmax<=1 status=2 solve=0.0s elapsed=42s -> profit=0 P=0 D=0
+[160/192] Pmax<=10 Dmax<=16 status=2 solve=0.4s elapsed=42s -> profit=222 P=4 D=15
+[158/192] Pmax<=10 Dmax<=14 status=2 solve=0.4s elapsed=43s -> profit=222 P=4 D=8
+[151/192] Pmax<=10 Dmax<=7 status=2 solve=0.5s elapsed=43s -> profit=219 P=4 D=7
+[150/192] Pmax<=10 Dmax<=6 status=2 solve=0.8s elapsed=44s -> profit=208 P=5 D=6
+[149/192] Pmax<=10 Dmax<=5 status=2 solve=1.0s elapsed=45s -> profit=183 P=5 D=5
+[148/192] Pmax<=10 Dmax<=4 status=2 solve=1.0s elapsed=46s -> profit=167 P=6 D=4
+[147/192] Pmax<=10 Dmax<=3 status=2 solve=0.3s elapsed=46s -> profit=100 P=3 D=3
+[146/192] Pmax<=10 Dmax<=2 status=2 solve=0.3s elapsed=46s -> profit=60 P=3 D=2
+[145/192] Pmax<=10 Dmax<=1 status=2 solve=0.0s elapsed=46s -> profit=0 P=0 D=0
+[176/192] Pmax<=11 Dmax<=16 status=2 solve=0.4s elapsed=47s -> profit=222 P=4 D=15
+[174/192] Pmax<=11 Dmax<=14 status=2 solve=0.4s elapsed=47s -> profit=222 P=4 D=8
+[167/192] Pmax<=11 Dmax<=7 status=2 solve=0.5s elapsed=48s -> profit=219 P=4 D=7
+[166/192] Pmax<=11 Dmax<=6 status=2 solve=0.8s elapsed=49s -> profit=208 P=5 D=6
+[165/192] Pmax<=11 Dmax<=5 status=2 solve=1.0s elapsed=50s -> profit=183 P=5 D=5
+[164/192] Pmax<=11 Dmax<=4 status=2 solve=1.0s elapsed=51s -> profit=167 P=6 D=4
+[163/192] Pmax<=11 Dmax<=3 status=2 solve=0.3s elapsed=51s -> profit=100 P=3 D=3
+[162/192] Pmax<=11 Dmax<=2 status=2 solve=0.3s elapsed=51s -> profit=60 P=3 D=2
+[161/192] Pmax<=11 Dmax<=1 status=2 solve=0.0s elapsed=51s -> profit=0 P=0 D=0
+[192/192] Pmax<=12 Dmax<=16 status=2 solve=0.4s elapsed=52s -> profit=222 P=4 D=15
+[190/192] Pmax<=12 Dmax<=14 status=2 solve=0.4s elapsed=52s -> profit=222 P=4 D=8
+[183/192] Pmax<=12 Dmax<=7 status=2 solve=0.5s elapsed=52s -> profit=219 P=4 D=7
+[182/192] Pmax<=12 Dmax<=6 status=2 solve=0.9s elapsed=53s -> profit=208 P=5 D=6
+[181/192] Pmax<=12 Dmax<=5 status=2 solve=1.0s elapsed=54s -> profit=183 P=5 D=5
+[180/192] Pmax<=12 Dmax<=4 status=2 solve=0.9s elapsed=55s -> profit=167 P=6 D=4
+[179/192] Pmax<=12 Dmax<=3 status=2 solve=0.3s elapsed=56s -> profit=100 P=3 D=3
+[178/192] Pmax<=12 Dmax<=2 status=2 solve=0.3s elapsed=56s -> profit=60 P=3 D=2
+[177/192] Pmax<=12 Dmax<=1 status=2 solve=0.0s elapsed=56s -> profit=0 P=0 D=0
+front: 28 points in 55.9s
+profit=  222  maxProj/emp=4  maxDuration=8
+profit=  219  maxProj/emp=4  maxDuration=7
+profit=  216  maxProj/emp=3  maxDuration=7
+profit=  208  maxProj/emp=5  maxDuration=6
+profit=  205  maxProj/emp=4  maxDuration=6
+profit=  198  maxProj/emp=3  maxDuration=6
+profit=  183  maxProj/emp=5  maxDuration=5
+profit=  179  maxProj/emp=2  maxDuration=8
+profit=  176  maxProj/emp=4  maxDuration=5
+profit=  167  maxProj/emp=6  maxDuration=4
+profit=  167  maxProj/emp=2  maxDuration=7
+profit=  165  maxProj/emp=5  maxDuration=4
+profit=  160  maxProj/emp=2  maxDuration=6
+profit=  155  maxProj/emp=4  maxDuration=4
+profit=  154  maxProj/emp=3  maxDuration=5
+profit=  125  maxProj/emp=3  maxDuration=4
+profit=  117  maxProj/emp=2  maxDuration=5
+profit=  100  maxProj/emp=3  maxDuration=3
+profit=  100  maxProj/emp=1  maxDuration=8
+profit=   90  maxProj/emp=2  maxDuration=4
+profit=   90  maxProj/emp=1  maxDuration=6
+profit=   75  maxProj/emp=2  maxDuration=3
+profit=   65  maxProj/emp=1  maxDuration=5
+profit=   60  maxProj/emp=3  maxDuration=2
+profit=   50  maxProj/emp=2  maxDuration=2
+profit=   50  maxProj/emp=1  maxDuration=3
+profit=   35  maxProj/emp=1  maxDuration=2
+profit=    0  maxProj/emp=0  maxDuration=0
+wrote gen4_front.json, gen4_pareto.png, gen4_schedule.png

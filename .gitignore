@@ -1,0 +1,17 @@
+__pycache__/
+*.pyc
+# copies of the large-run log used only for --resume
+large_run_prev.log
+large_run_before_reboot.log
+# generic outputs of the last run (same files are kept under instance-specific names)
+/pareto.png
+/schedule.png
+/front.json
+# LaTeX build files
+*.aux
+*.log.tex
+*.nav
+*.out
+*.snm
+*.toc
+*.vrb

@@ -1,0 +1,87 @@
+[
+ {
+  "profit": 103,
+  "max_projects_per_employee": 3,
+  "max_duration": 5
+ },
+ {
+  "profit": 102,
+  "max_projects_per_employee": 5,
+  "max_duration": 4
+ },
+ {
+  "profit": 100,
+  "max_projects_per_employee": 4,
+  "max_duration": 4
+ },
+ {
+  "profit": 97,
+  "max_projects_per_employee": 4,
+  "max_duration": 3
+ },
+ {
+  "profit": 97,
+  "max_projects_per_employee": 3,
+  "max_duration": 4
+ },
+ {
+  "profit": 94,
+  "max_projects_per_employee": 3,
+  "max_duration": 3
+ },
+ {
+  "profit": 88,
+  "max_projects_per_employee": 2,
+  "max_duration": 8
+ },
+ {
+  "profit": 87,
+  "max_projects_per_employee": 2,
+  "max_duration": 5
+ },
+ {
+  "profit": 75,
+  "max_projects_per_employee": 2,
+  "max_duration": 4
+ },
+ {
+  "profit": 70,
+  "max_projects_per_employee": 2,
+  "max_duration": 3
+ },
+ {
+  "profit": 55,
+  "max_projects_per_employee": 1,
+  "max_duration": 5
+ },
+ {
+  "profit": 40,
+  "max_projects_per_employee": 3,
+  "max_duration": 2
+ },
+ {
+  "profit": 40,
+  "max_projects_per_employee": 1,
+  "max_duration": 3
+ },
+ {
+  "profit": 30,
+  "max_projects_per_employee": 2,
+  "max_duration": 2
+ },
+ {
+  "profit": 15,
+  "max_projects_per_employee": 2,
+  "max_duration": 1
+ },
+ {
+  "profit": 15,
+  "max_projects_per_employee": 1,
+  "max_duration": 2
+ },
+ {
+  "profit": 10,
+  "max_projects_per_employee": 1,
+  "max_duration": 1
+ }
+]

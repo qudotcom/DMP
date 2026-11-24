@@ -1,0 +1,67 @@
+Set parameter Username
+Set parameter LicenseID to value 2880001
+Academic license - for non-commercial use only - expires 2027-10-30
+[10/80] Pmax<=1 Dmax<=10 status=2 solve=0.1s elapsed=0s -> profit=55 P=1 D=9
+[8/80] Pmax<=1 Dmax<=8 status=2 solve=0.1s elapsed=0s -> profit=55 P=1 D=8
+[7/80] Pmax<=1 Dmax<=7 status=2 solve=0.1s elapsed=0s -> profit=55 P=1 D=7
+[6/80] Pmax<=1 Dmax<=6 status=2 solve=0.1s elapsed=0s -> profit=55 P=1 D=6
+[5/80] Pmax<=1 Dmax<=5 status=2 solve=0.1s elapsed=0s -> profit=55 P=1 D=5
+[4/80] Pmax<=1 Dmax<=4 status=2 solve=0.2s elapsed=1s -> profit=40 P=1 D=3
+[2/80] Pmax<=1 Dmax<=2 status=2 solve=0.1s elapsed=1s -> profit=15 P=1 D=2
+[1/80] Pmax<=1 Dmax<=1 status=2 solve=0.0s elapsed=1s -> profit=10 P=1 D=1
+[20/80] Pmax<=2 Dmax<=10 status=2 solve=0.4s elapsed=1s -> profit=88 P=2 D=8
+[17/80] Pmax<=2 Dmax<=7 status=2 solve=0.5s elapsed=2s -> profit=87 P=2 D=7
+[16/80] Pmax<=2 Dmax<=6 status=2 solve=0.5s elapsed=2s -> profit=87 P=2 D=5
+[14/80] Pmax<=2 Dmax<=4 status=2 solve=0.3s elapsed=3s -> profit=75 P=2 D=4
+[13/80] Pmax<=2 Dmax<=3 status=2 solve=0.4s elapsed=3s -> profit=70 P=2 D=3
+[12/80] Pmax<=2 Dmax<=2 status=2 solve=0.1s elapsed=3s -> profit=30 P=2 D=2
+[11/80] Pmax<=2 Dmax<=1 status=2 solve=0.0s elapsed=3s -> profit=15 P=2 D=1
+[30/80] Pmax<=3 Dmax<=10 status=2 solve=0.1s elapsed=3s -> profit=103 P=3 D=5
+[24/80] Pmax<=3 Dmax<=4 status=2 solve=0.2s elapsed=3s -> profit=97 P=3 D=4
+[23/80] Pmax<=3 Dmax<=3 status=2 solve=0.3s elapsed=4s -> profit=94 P=3 D=3
+[22/80] Pmax<=3 Dmax<=2 status=2 solve=0.1s elapsed=4s -> profit=40 P=3 D=2
+[21/80] Pmax<=3 Dmax<=1 status=2 solve=0.0s elapsed=4s -> profit=15 P=2 D=1
+[40/80] Pmax<=4 Dmax<=10 status=2 solve=0.2s elapsed=4s -> profit=103 P=3 D=5
+[34/80] Pmax<=4 Dmax<=4 status=2 solve=0.3s elapsed=4s -> profit=100 P=4 D=4
+[33/80] Pmax<=4 Dmax<=3 status=2 solve=0.3s elapsed=5s -> profit=97 P=4 D=3
+[32/80] Pmax<=4 Dmax<=2 status=2 solve=0.1s elapsed=5s -> profit=40 P=4 D=2
+[31/80] Pmax<=4 Dmax<=1 status=2 solve=0.0s elapsed=5s -> profit=15 P=2 D=1
+[50/80] Pmax<=5 Dmax<=10 status=2 solve=0.3s elapsed=5s -> profit=103 P=3 D=5
+[44/80] Pmax<=5 Dmax<=4 status=2 solve=0.2s elapsed=5s -> profit=102 P=5 D=4
+[43/80] Pmax<=5 Dmax<=3 status=2 solve=0.4s elapsed=6s -> profit=97 P=4 D=3
+[42/80] Pmax<=5 Dmax<=2 status=2 solve=0.1s elapsed=6s -> profit=40 P=4 D=2
+[41/80] Pmax<=5 Dmax<=1 status=2 solve=0.0s elapsed=6s -> profit=15 P=2 D=1
+[60/80] Pmax<=6 Dmax<=10 status=2 solve=0.2s elapsed=6s -> profit=103 P=3 D=5
+[54/80] Pmax<=6 Dmax<=4 status=2 solve=0.2s elapsed=6s -> profit=102 P=5 D=4
+[53/80] Pmax<=6 Dmax<=3 status=2 solve=0.5s elapsed=7s -> profit=97 P=4 D=3
+[52/80] Pmax<=6 Dmax<=2 status=2 solve=0.1s elapsed=7s -> profit=40 P=4 D=2
+[51/80] Pmax<=6 Dmax<=1 status=2 solve=0.0s elapsed=7s -> profit=15 P=2 D=1
+[70/80] Pmax<=7 Dmax<=10 status=2 solve=0.2s elapsed=7s -> profit=103 P=3 D=5
+[64/80] Pmax<=7 Dmax<=4 status=2 solve=0.2s elapsed=7s -> profit=102 P=5 D=4
+[63/80] Pmax<=7 Dmax<=3 status=2 solve=0.4s elapsed=7s -> profit=97 P=4 D=3
+[62/80] Pmax<=7 Dmax<=2 status=2 solve=0.1s elapsed=8s -> profit=40 P=4 D=2
+[61/80] Pmax<=7 Dmax<=1 status=2 solve=0.0s elapsed=8s -> profit=15 P=2 D=1
+[80/80] Pmax<=8 Dmax<=10 status=2 solve=0.2s elapsed=8s -> profit=103 P=3 D=5
+[74/80] Pmax<=8 Dmax<=4 status=2 solve=0.2s elapsed=8s -> profit=102 P=5 D=4
+[73/80] Pmax<=8 Dmax<=3 status=2 solve=0.3s elapsed=8s -> profit=97 P=4 D=3
+[72/80] Pmax<=8 Dmax<=2 status=2 solve=0.1s elapsed=8s -> profit=40 P=4 D=2
+[71/80] Pmax<=8 Dmax<=1 status=2 solve=0.0s elapsed=8s -> profit=15 P=2 D=1
+front: 17 points in 8.4s
+profit=  103  maxProj/emp=3  maxDuration=5
+profit=  102  maxProj/emp=5  maxDuration=4
+profit=  100  maxProj/emp=4  maxDuration=4
+profit=   97  maxProj/emp=4  maxDuration=3
+profit=   97  maxProj/emp=3  maxDuration=4
+profit=   94  maxProj/emp=3  maxDuration=3
+profit=   88  maxProj/emp=2  maxDuration=8
+profit=   87  maxProj/emp=2  maxDuration=5
+profit=   75  maxProj/emp=2  maxDuration=4
+profit=   70  maxProj/emp=2  maxDuration=3
+profit=   55  maxProj/emp=1  maxDuration=5
+profit=   40  maxProj/emp=3  maxDuration=2
+profit=   40  maxProj/emp=1  maxDuration=3
+profit=   30  maxProj/emp=2  maxDuration=2
+profit=   15  maxProj/emp=2  maxDuration=1
+profit=   15  maxProj/emp=1  maxDuration=2
+profit=   10  maxProj/emp=1  maxDuration=1
+wrote gen2_front.json, gen2_pareto.png, gen2_schedule.png
