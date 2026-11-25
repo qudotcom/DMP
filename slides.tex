@@ -31,6 +31,8 @@
     \node[anchor=west,text=coolgrey,font=\normalsize,text width=0.85\paperwidth] at ([xshift=2em,yshift=-0.72\paperheight]current page.north west) {\insertauthor\\[0.3em]\insertinstitute\ --- \insertdate};
   \end{tikzpicture}}
 \usepackage{tikz}
+\let\originalincludegraphics\includegraphics
+\renewcommand{\includegraphics}[2][]{\IfFileExists{#2}{\originalincludegraphics[#1]{#2}}{\fbox{\parbox[c][1.5cm][c]{0.80\linewidth}{\centering\small Figure not supplied\\\texttt{\detokenize{#2}}}}}}
 
 \title{Staffing Collaborators on Projects}
 \subtitle{A multi-objective MILP for CompuOpti}
@@ -42,78 +44,81 @@
 \begin{frame}[plain]\titlepage\end{frame}
 
 \begin{frame}{Problem}
-\begin{itemize}
-  \item Assign each employee's working day to a \alert{(project, skill)} pair or to rest.
-  \item Respect skills, leave days, one task per day.
-  \item A project yields its gain only if \alert{all} its skill-days are covered.
-  \item Late delivery costs a penalty per day.
-  \item Three conflicting goals: \alert{profit}, \alert{projects per employee}, \alert{longest project}.
+\begin{itemize}\setlength{\itemsep}{0.7em}
+  \item \alert{Our goal} is to assign employees to projects, one working day at a time.
+  \item Each assignment must match the employee's skills and availability.
+  \item A project generates revenue only when all required skill-days are covered.
+  \item Late completion reduces profit through a daily penalty.
+  \item We balance three goals: \alert{profit}, fewer projects per employee, and shorter projects.
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Parameters}
 \begin{columns}[T]
-\column{0.5\textwidth}
-\begin{itemize}
-  \item $\mathcal H=\{1,\dots,h\}$: working days
-  \item $\mathcal Q$: skills, $\mathcal S$: staff, $\mathcal J$: projects
-  \item $\mathcal Q^S_i\subseteq\mathcal Q$: skills of $i$
-  \item $\mathcal V^S_i\subseteq\mathcal H$: leave days of $i$
+\column{0.48\textwidth}
+\alert{Employees and planning horizon}
+\begin{itemize}\setlength{\itemsep}{0.5em}
+\item $\mathcal H=\{1,\dots,h\}$: working days.
+\item $\mathcal S$, $\mathcal Q$, $\mathcal J$: staff, skills and projects.
+\item $\mathcal Q_i^S$: skills employee $i$ can use.
+\item $\mathcal V_i^S$: days employee $i$ is on leave.
 \end{itemize}
-\column{0.5\textwidth}
-\begin{itemize}
-  \item $\mathcal Q^J_j$: skills needed by $j$
-  \item $n_{j,k}$: person-days of skill $k$ for $j$
-  \item $g_j$: gain, $c_j$: daily penalty
-  \item $d_j$: due date
+\column{0.48\textwidth}
+\alert{Project requirements}
+\begin{itemize}\setlength{\itemsep}{0.5em}
+\item $\mathcal Q_j^J$: skills project $j$ requires.
+\item $n_{j,k}$: person-days needed for skill $k$.
+\item $g_j$: gain if completed.
+\item $c_j$: penalty per day late.
+\item $d_j$: project due date.
 \end{itemize}
 \end{columns}
 \end{frame}
 
 \begin{frame}{Decision variables}
-\begin{block}{}
-\begin{itemize}
-  \item $x_{i,j,k,t}\in\{0,1\}$: $i$ works on $j$ with skill $k$ on day $t$\\
-        {\small (only created if $k\in\mathcal Q^S_i\cap\mathcal Q^J_j$ and $t\notin\mathcal V^S_i$)}
-  \item $y_j\in\{0,1\}$: project $j$ completed
-  \item $b_{j,t},\,f_{j,t}\in\{0,1\}$: project $j$ \alert{begins} / \alert{finishes} on day $t$
-  \item $a_{j,t}\in[0,1]$: project $j$ is \alert{active} on day $t$
-  \item $z_{i,j}\in\{0,1\}$: $i$ works on $j$ at least once
-  \item $P_{\max},\,D_{\max}\ge 0$: max projects per employee, longest project
+\begin{itemize}\setlength{\itemsep}{0.65em}
+  \item \alert{Assignment} --- $x_{i,j,k,t}\in\{0,1\}$ indicates whether employee $i$ works on project $j$ using skill $k$ on day $t$.\\
+  {\small Only valid skills and available days are considered.}
+  \item \alert{Completion} --- $y_j\in\{0,1\}$ indicates whether project $j$ is completed.
+  \item \alert{Timing} --- $b_{j,t}$ and $f_{j,t}$ mark the start and finish (binary); $a_{j,t}\in[0,1]$ tracks the active period.
+  \item \alert{Involvement} --- $z_{i,j}\in\{0,1\}$ indicates whether employee $i$ works on project $j$ at least once.
+  \item \alert{Workload and duration} --- $P_{\max}$ and $D_{\max}$ bound the number of projects per employee and the longest project duration, respectively.
 \end{itemize}
-\end{block}
 \end{frame}
 
 \begin{frame}{Constraints --- assignment}
-\begin{align*}
-&\textstyle\sum_{j,k} x_{i,j,k,t}\le 1 && \forall i,t && \text{(one task per day)}\\
-&\textstyle\sum_{i,t} x_{i,j,k,t}= n_{j,k}\,y_j && \forall j,\ k\in\mathcal Q^J_j && \text{(all or nothing)}\\
-&\textstyle\sum_{k} x_{i,j,k,t}\le z_{i,j} && \forall i,j,t && \text{(involvement)}\\
-&P_{\max}\ge\textstyle\sum_{j} z_{i,j} && \forall i && \text{(workload)}
-\end{align*}
-Skills and leave days are built into the index set of $x$.
+\small
+\alert{One task per day} --- An employee cannot work on two assignments on the same day.
+\[\sum_{j,k}x_{i,j,k,t}\le1\quad\forall i,t\]
+\alert{All or nothing} --- A completed project must receive exactly the required skill-days.
+\[\sum_{i,t}x_{i,j,k,t}=n_{j,k}y_j\quad\forall j,k\in\mathcal Q_j^J\]
+\alert{Involvement and workload} --- We record each employee's projects and bound their total.
+\[\sum_k x_{i,j,k,t}\le z_{i,j}\quad\forall i,j,t,\qquad P_{\max}\ge\sum_j z_{i,j}\quad\forall i\]
+Skills and leave days are already handled by the index set of $x$.
 \end{frame}
 
 \begin{frame}{Constraints --- time window}
-\begin{align*}
-&\textstyle\sum_t b_{j,t}=y_j,\quad \sum_t f_{j,t}=y_j && \forall j && \text{(one start, one end)}\\
-&a_{j,t}=\textstyle\sum_{u\le t} b_{j,u}-\sum_{u<t} f_{j,u},\ \ 0\le a_{j,t}\le 1 && \forall j,t && \text{(active window)}\\
-&\textstyle\sum_{k} x_{i,j,k,t}\le a_{j,t} && \forall i,j,t && \text{(work inside window)}\\
-&D_{\max}\ge\textstyle\sum_t a_{j,t} && \forall j && \text{(duration)}\\
-&\ell_j=\textstyle\sum_{t>d_j}(t-d_j)\,f_{j,t} && \forall j && \text{(days late)}
-\end{align*}
+\small
+\alert{Start and finish} --- Every completed project has exactly one start and one finish.
+\[\sum_t b_{j,t}=y_j,\qquad \sum_t f_{j,t}=y_j\quad\forall j\]
+\alert{Active period} --- A project is active from its start through its finish. Work is allowed only during this period.
+\[a_{j,t}=\sum_{u\le t}b_{j,u}-\sum_{u<t}f_{j,u},\quad 0\le a_{j,t}\le1,\qquad \sum_k x_{i,j,k,t}\le a_{j,t}\]
+\alert{Duration and delay} --- We count active days and days after the due date.
+\[D_{\max}\ge\sum_t a_{j,t}\quad\forall j,\qquad \ell_j=\sum_{t>d_j}(t-d_j)f_{j,t}\]
 \end{frame}
 
 \begin{frame}{Objectives and $\varepsilon$-constraint}
-\begin{block}{Three criteria}
+\begin{block}{Three objectives}
 \begin{align*}
-f_1&=\max\ \textstyle\sum_j g_j y_j-\sum_j c_j\ell_j &&\text{profit}\\
-f_2&=\min\ P_{\max} &&\text{projects per employee}\\
-f_3&=\min\ D_{\max} &&\text{longest project}
+f_1&=\textstyle\sum_j g_j y_j-\sum_j c_j\ell_j &&\text{maximize net profit}\\
+f_2&=P_{\max} &&\text{minimize projects per employee}\\
+f_3&=D_{\max} &&\text{minimize longest project duration}
 \end{align*}
 \end{block}
-For every pair $(\alpha,\beta)$: \ $\max\ f_1-\varepsilon\,(P_{\max}+D_{\max})$ \ s.t.\ $P_{\max}\le\alpha$, $D_{\max}\le\beta$, then filter dominated points.\\[0.4em]
-\alert{Jump:} if the optimum has $D_{\max}=D<\beta$, the same plan is optimal for every $\beta'\in[D,\beta]$, so go straight to $\beta=D-1$.
+\small
+\alert{Method:} We maximize profit under different workload and duration limits $(\alpha,\beta)$, then remove dominated solutions.
+\[\max\ f_1-\varepsilon(P_{\max}+D_{\max}),\quad P_{\max}\le\alpha,\ D_{\max}\le\beta\]
+\alert{Jump:} If the solution has duration $D<\beta$, it remains optimal down to $\beta'=D$. We can skip directly to $\beta=D-1$.
 \end{frame}
 
 \begin{frame}{Why the time window: big-M vs tight formulation}
@@ -121,9 +126,9 @@ For every pair $(\alpha,\beta)$: \ $\max\ f_1-\varepsilon\,(P_{\max}+D_{\max})$ 
 \column{0.48\textwidth}
 \textbf{First version (big-M)}
 \[ e_j\ge t\,x_{i,j,k,t},\quad s_j\le t+h(1-x_{i,j,k,t}) \]
-Weak LP relaxation: with $x=0.1$ the constraint says almost nothing.
+With fractional assignments, such as $x=0.1$, these bounds are weak.
 \column{0.48\textwidth}
-\textbf{Time window}: no large constant, duration is a count of active days. Tighter bound, fewer constraints.
+\textbf{Time window}\par We count active days directly, without a large constant. This gives a tighter relaxation and fewer constraints.
 \end{columns}
 \vspace{0.6em}
 \centering\footnotesize
@@ -136,6 +141,7 @@ one solve, $\alpha=4,\ \beta=9$ & 7\,071 s & 251 s (\alert{28$\times$}) & 670, P
 size (vars / constraints) & 4\,191 / 12\,149 & 6\,816 / 6\,973 & \\
 \bottomrule
 \end{tabular}
+\par\vspace{0.5em}\small The same optimal results, with up to \alert{28 times faster} solves.
 \end{frame}
 
 \begin{frame}{Results --- overview}
@@ -151,8 +157,8 @@ Large & 6 staff, 25 proj., 36 days & $\approx$35 h, 347 solves & 817 \ (P$\le$9,
 \end{tabular}
 \vspace{1em}
 \begin{itemize}
-  \item All fronts are \alert{proven optimal} (Gurobi 13, academic licence).
-  \item Large: total gain of all projects is 1\,020; the best plan completes 17 of 25.
+  \item We obtained \alert{proven optimal} Pareto fronts using Gurobi 13 (academic licence).
+  \item For the large instance, the best plan completes 17 of 25 projects, out of a total potential gain of 1\,020.
 \end{itemize}
 \end{frame}
 
@@ -169,18 +175,18 @@ Profit & P & D\\
 \bottomrule
 \end{tabular}
 \column{0.64\textwidth}
-\centering\includegraphics[width=\textwidth]{toy_schedule.png}\\[0.3em]
-{\small Most profitable plan (65): Job2 skipped, all others on time.}
+\centering\includegraphics[width=0.9\textwidth]{toy_schedule.png}\\[0.3em]
+{\small The best profit is 65. We skip Job2 and finish every other project on time.\par The table shows two ways to reach this profit.}
 \end{columns}
 \end{frame}
 
 \begin{frame}{Results --- medium instance}
 \centering\includegraphics[height=0.66\textheight]{medium_front.png}\\
-\small 413 is the maximum (P=6, D=8 or P=5, D=10); $-2\%$ allows 5-day projects or 4 projects per employee.
+\small The maximum profit is \alert{413}, with either $(P,D)=(6,8)$ or $(5,10)$.\par Giving up about 2\% of profit allows 5-day projects or at most 4 projects per employee.
 \end{frame}
 
 \begin{frame}{Results --- medium schedule (profit 413)}
-\centering\includegraphics[width=\textwidth,height=0.75\textheight,keepaspectratio]{medium_schedule.png}
+\centering\includegraphics[width=\textwidth,height=0.60\textheight,keepaspectratio]{medium_schedule.png}\par\medskip\small This schedule illustrates a plan earning \alert{413}, the highest profit in the medium instance. The workload and project duration are controlled by the chosen limits.
 \end{frame}
 
 \begin{frame}{Results --- large instance}
@@ -199,22 +205,22 @@ Profit & P & D\\
 \end{tabular}
 \end{columns}
 \vspace{0.4em}
-\small $-3\%$ profit (794) cuts the workload from 9 to 6 projects per employee. Limits above 9 only help very short projects; above 11 nothing changes.
+\small By accepting about 3\% less profit (794), we reduce the maximum workload from 9 to 6 projects. Limits above 9 only help very short projects; above 11 there is no improvement.
 \end{frame}
 
 \begin{frame}{Results --- large schedule (profit 817)}
-\centering\includegraphics[width=\textwidth,height=0.75\textheight,keepaspectratio]{large_schedule.png}
+\centering\includegraphics[width=\textwidth,height=0.60\textheight,keepaspectratio]{large_schedule.png}\par\medskip\small This plan reaches the maximum profit of \alert{817} and completes 17 of the 25 projects. The remaining projects are not selected.
 \end{frame}
 
 \begin{frame}{Instance generator}
 \texttt{python generate\_instance.py out.json --staff 5 --jobs 12 --horizon 16 --quals 8 --seed 4}
 \vspace{0.5em}
 \begin{itemize}
-  \item Each employee gets 1--5 random skills; every skill is held by at least one employee.
-  \item Leave days: about 8\,\% of the horizon per employee (\texttt{--vacation}).
-  \item Each project needs 1--4 skills; person-days are scaled so that total demand $\approx 1.3\times$ capacity (\texttt{--load}), as in the given instances: \alert{not every project can be done}.
-  \item Gain $\approx 3.75$ per person-day $\pm 30\,\%$; due date between $h/3$ and $h$; penalty 3 per day late.
-  \item Reproducible: same arguments and seed $\Rightarrow$ same file.
+  \item We assign 1--5 random skills to each employee and ensure every skill is covered.
+  \item We reserve about 8\,\% of working days for leave (\texttt{--vacation}).
+  \item Each project requires 1--4 skills. Total demand is about $1.3\times$ capacity (\texttt{--load}), as in the given instances: \alert{not every project can be done}.
+  \item Gain is about 3.75 per person-day ($\pm30\%$), with due dates between $h/3$ and $h$ and a daily penalty of 3.
+  \item The same parameters and random seed reproduce the same instance.
 \end{itemize}
 \end{frame}
 
@@ -235,8 +241,8 @@ large (given) & 6 & 25 & 36 & 10 & 347 & $\approx$35 h & 92 & 817, 9, 8\\
 \end{tabular}
 \vspace{0.8em}
 \begin{itemize}
-  \item The number of solves grows roughly with projects $\times$ days; the time per solve grows much faster.
-  \item Size alone does not decide difficulty: gen4 is bigger than gen3 but faster.
+  \item As projects and days increase, we need more solves. The time per solve grows even faster.
+  \item Size is not the only factor: gen4 is larger than gen3, but solves faster.
 \end{itemize}
 \end{frame}
 
@@ -245,21 +251,21 @@ large (given) & 6 & 25 & 36 & 10 & 347 & $\approx$35 h & 92 & 817, 9, 8\\
 \column{0.46\textwidth}
 \centering\includegraphics[width=0.9\textwidth]{generated/gen4_front.png}
 \column{0.52\textwidth}
-\small Any point of the front can be opened as a schedule:\\[0.3em]
+\small Every point on the Pareto front corresponds to a concrete staffing schedule:\\[0.3em]
 {\footnotesize\texttt{python staffing.py gen4.json --plan 3 7}}\\[0.3em]
-Below: profit 216 with at most 3 projects per employee and 7-day projects (the best plan earns 222 with 4 projects and 8-day projects).
+Here we earn \alert{216} with at most 3 projects per employee and a 7-day duration limit. The best profit is 222, with limits of 4 projects and 8 days.
 \end{columns}
 \vspace{0.2em}
 \centering\includegraphics[width=0.72\textwidth]{generated/gen4_schedule_P3_D7.png}
 \end{frame}
 
 \begin{frame}{Conclusion}
-\begin{itemize}
-  \item Compact MILP solved \alert{exactly} with Gurobi on the three given instances and four generated ones.
-  \item The $\varepsilon$-constraint method with the jump gives the complete Pareto front with far fewer solves (medium: 144 instead of 330).
-  \item Formulation matters more than hardware: the time-window model made hard solves up to 28$\times$ faster.
-  \item Look at sweet spots, not just the maximum: a few \% of profit buys much shorter projects or a lighter workload.
-  \item Larger instances: time limit per solve, or stronger duration bounds.
+\begin{itemize}\setlength{\itemsep}{0.7em}
+  \item \alert{Exact optimization:} We solved all three given instances and four generated instances with Gurobi.
+  \item \alert{Fewer solves:} The jump strategy finds the complete Pareto front (144 instead of 330 solves for the medium instance).
+  \item \alert{Faster model:} The time-window formulation makes difficult solves up to 28 times faster.
+  \item \alert{Practical trade-offs:} A small reduction in profit can significantly reduce workload or project duration.
+  \item \alert{Next step:} For larger instances, use time limits per solve or stronger duration bounds.
 \end{itemize}
 \end{frame}
 \end{document}
