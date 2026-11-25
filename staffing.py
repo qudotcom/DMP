@@ -178,12 +178,46 @@ def describe(plan, data):
               f"  late {late} d (-{c[j] * late})  staff: {', '.join(who)}")
 
 
-def plot_front(front, fname="pareto.png"):
-    pts = list(front)
-    ax = plt.figure().add_subplot(projection="3d")
-    ax.scatter([p[1] for p in pts], [p[2] for p in pts], [p[0] for p in pts], c="#8C1515")
-    ax.set_xlabel("max projects / employee"); ax.set_ylabel("max duration"); ax.set_zlabel("profit")
-    plt.title("Non-dominated solutions"); plt.savefig(fname, dpi=200); plt.close()
+CUBE_CMAP = None
+
+
+def draw_cube(ax, pts, title=None, fs=1.0):
+    """3-D Pareto 'cube': x = projects per employee, y = longest project, z = profit.
+    Points are coloured by profit (pale to cardinal), each with a stem down to the floor so its
+    (P, D) position can be read; the best-profit points get a dark outline."""
+    from matplotlib.colors import LinearSegmentedColormap
+    from matplotlib.ticker import MaxNLocator
+    global CUBE_CMAP
+    if CUBE_CMAP is None:
+        CUBE_CMAP = LinearSegmentedColormap.from_list("cardinal", ["#F3D3D3", "#C0504D", "#8C1515", "#4A0B0B"])
+    pts = [p for p in pts if p[0] > 0]
+    xs, ys, zs = [p[1] for p in pts], [p[2] for p in pts], [p[0] for p in pts]
+    best = max(zs)
+    for x, y, z in zip(xs, ys, zs):
+        ax.plot([x, x], [y, y], [0, z], color="#B8B9BC", lw=0.6, zorder=1)
+    ax.scatter(xs, ys, [0] * len(xs), color="#B8B9BC", s=6, depthshade=False)
+    ax.scatter(xs, ys, zs, c=zs, cmap=CUBE_CMAP, vmin=min(zs), vmax=best,
+               s=[70 * fs if z == best else 30 * fs for z in zs],
+               edgecolors=["#D2C295" if z == best else "white" for z in zs],
+               linewidths=[1.8 if z == best else 0.4 for z in zs], depthshade=False, zorder=3)
+    ax.set_xlabel("P: projects/employee", fontsize=8 * fs, labelpad=2 * fs)
+    ax.set_ylabel("D: longest project (days)", fontsize=8 * fs, labelpad=2 * fs)
+    ax.set_zlabel("profit", fontsize=8 * fs, labelpad=2 * fs)
+    for axis in (ax.xaxis, ax.yaxis):
+        axis.set_major_locator(MaxNLocator(integer=True, nbins=6 if fs <= 1 else 5))
+    ax.zaxis.set_major_locator(MaxNLocator(nbins=5 if fs <= 1 else 4))
+    ax.tick_params(labelsize=7 * fs, pad=0)
+    ax.set_zlim(0, best * 1.05)
+    ax.view_init(elev=22, azim=-128)
+    if title:
+        ax.set_title(title, fontsize=10 * fs, color="#4D4F53")
+
+
+def plot_front(front, fname="pareto.png", title="Pareto front"):
+    fig = plt.figure(figsize=(5.6, 4.8))
+    draw_cube(fig.add_subplot(projection="3d"), list(front), title)
+    fig.subplots_adjust(left=0.02, right=0.95, bottom=0.04, top=0.93)
+    plt.savefig(fname, dpi=200); plt.close()
 
 
 def plot_schedule(plan, data, fname="schedule.png", title=None):

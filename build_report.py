@@ -35,7 +35,7 @@ S = {
     "h1": ParagraphStyle("h1", fontName="Helvetica-Bold", fontSize=15, leading=19,
                          textColor=ACCENT, spaceBefore=14, spaceAfter=2),
     "h2": ParagraphStyle("h2", fontName="Helvetica-Bold", fontSize=11.5, leading=15,
-                         textColor=ACCENT, spaceBefore=10, spaceAfter=4),
+                         textColor=ACCENT, spaceBefore=10, spaceAfter=4, keepWithNext=1),
     "body": ParagraphStyle("b", **base, fontSize=10, leading=14.2, spaceAfter=6),
     "bullet": ParagraphStyle("bl", **base, fontSize=10, leading=14, leftIndent=14,
                              bulletIndent=3, bulletFontName="ZapfDingbats", bulletFontSize=5.5,
@@ -376,7 +376,8 @@ python staffing.py medium_instance.json
 python staffing.py large_instance.json --resume large_run_prev.log   # continue after a stop
 python staffing.py gen4.json --plan 3 7      # schedule of one chosen point of the front
 python generate_instance.py gen4.json --staff 5 --jobs 12 --horizon 16 --quals 8 --seed 4
-python value_of_person.py medium_instance.json --caps 6 8 --out medium_value_of_person.json"""))
+python value_of_person.py medium_instance.json --caps 6 8 --out medium_value_of_person.json
+python plot_cubes.py                          # 3-D Pareto cubes from the saved fronts"""))
 st.append(P("Each solve prints a line such as:"))
 st.append(code("[118/900] Pmax<=4 Dmax<=10 status=2 solve=2256.9s elapsed=19963s -> profit=700 P=4 D=10"))
 st.append(P("meaning: limits α = 4 and β = 10, status 2 = proven optimal, this solve took 2,257 s, and the best "
@@ -493,7 +494,17 @@ vrows = sorted(vop["rows"], key=lambda r: (r["new_person"] == "all skills", -r["
 vtop = vrows[0]
 vall = next(r for r in vrows if r["new_person"] == "all skills")
 same_caps = all(r["gain_caps"] == r["gain_no_limit"] for r in vrows)
-st.append(P("4.5 What is one more person worth? (medium instance)", "h2"))
+st.append(P("4.5 The three fronts in 3-D", "h2"))
+st.append(P("Figure 7 shows each front as a cloud of points in the space of the three objectives: projects per "
+            "employee (P), longest project (D) and profit. Each stem drops to the floor so the (P, D) position "
+            "can be read; the colour goes from pale (low profit) to dark cardinal (high profit), and the "
+            "ringed points reach the maximum profit. On every instance the cloud rises quickly and then "
+            "flattens: the last few percent of profit need much looser limits on P or D."))
+st.append(KeepTogether([img(os.path.join(proj, "pareto_cubes.png"), W),
+                        P("Figure 7 — Pareto fronts of the toy, medium and large instances in objective space "
+                          "(drawn by plot_cubes.py from the saved fronts).", "cap")]))
+
+st.append(P("4.6 What is one more person worth? (medium instance)", "h2"))
 st.append(P(f"A manager's question: which skill should the next hire have, and what is it worth? A MILP has no "
             f"meaningful dual prices, so we answer it by re-solving. <b>value_of_person.py</b> adds one employee "
             f"who is available all {vh} days and has a single skill, re-solves the model exactly, and repeats this for each of the "
