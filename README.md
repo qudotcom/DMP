@@ -17,6 +17,7 @@ The model is solved exactly with Gurobi. The Pareto front comes from the epsilon
 |---|---|
 | `staffing.py` | Model, Pareto sweep, plots, and the `--plan` option that shows any point of the front as a schedule |
 | `generate_instance.py` | Random instance generator in the same JSON format |
+| `value_of_person.py`, `medium_value_of_person.json` | What-if analysis: profit gained by hiring one more person with a given skill |
 | `toy/medium/large_instance.json` | Given instances |
 | `generated/` | Generated instances `gen1`–`gen4`, with their fronts, plots and run logs |
 | `*_front.txt`, `*_pareto.png`, `*_schedule.png` | Results for the given instances |
@@ -35,6 +36,7 @@ python staffing.py toy_instance.json --prefix toy_        # whole front -> toy_f
 python staffing.py toy_instance.json --plan 2 3           # schedule of the point with <= 2 projects/employee and <= 3-day projects
 python staffing.py large_instance.json --resume old.log   # continue an interrupted run from its progress log
 python generate_instance.py gen.json --staff 5 --jobs 12 --horizon 16 --quals 8 --seed 4
+python value_of_person.py medium_instance.json --caps 6 8 --out medium_value_of_person.json
 ```
 
 ## Results

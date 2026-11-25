@@ -214,6 +214,41 @@ Profit & P & D\\
 \centering\includegraphics[width=\textwidth,height=0.66\textheight,keepaspectratio]{large_schedule.png}\par\smallskip\small Days 1--18 (top) and 19--36 (bottom). Maximum profit \alert{817}: 17 of the 25 projects completed, at most 9 projects per employee, no project longer than 8 days.
 \end{frame}
 
+\begin{frame}{What is one more person worth? (medium)}
+\begin{columns}[T]
+\column{0.40\textwidth}
+\centering\footnotesize
+\begin{tabular}{lrrr}
+\toprule
+New skill & Profit & Gain & Projects\\
+\midrule
+D & 465 & \alert{+52} & 13\\
+J & 459 & +46 & 13\\
+F & 454 & +41 & 13\\
+G & 450 & +37 & 13\\
+E & 445 & +32 & 13\\
+A & 431 & +18 & 12\\
+C & 428 & +15 & 12\\
+I & 428 & +15 & 12\\
+B & 417 & +4 & 11\\
+H & 417 & +4 & 11\\
+\midrule
+all 10 skills & 472 & +59 & 14\\
+nobody & 413 & --- & 11\\
+\bottomrule
+\end{tabular}
+\column{0.54\textwidth}
+\small
+\begin{itemize}\setlength{\itemsep}{0.5em}
+  \item We add one employee, available all 22 days, with a single skill, and \alert{re-solve exactly} (a MILP has no meaningful dual prices). 24 solves, 95 s.
+  \item Best hire: a \alert{D specialist}, +52 profit (+12.6\,\%) and 2 more projects, i.e.\ 88\,\% of what a person with all skills would bring.
+  \item B or H: only +4, these skills are not the bottleneck.
+  \item Scarcity alone does not decide: F has a single holder but ranks third.
+  \item Same gains under the best plan's limits ($P\le6$, $D\le8$).
+\end{itemize}
+\end{columns}
+\end{frame}
+
 \begin{frame}{Instance generator}
 \texttt{python generate\_instance.py out.json --staff 5 --jobs 12 --horizon 16 --quals 8 --seed 4}
 \vspace{0.5em}

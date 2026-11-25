@@ -1,5 +1,5 @@
 """Build the staffing report PDF. Usage: python build_report.py <project_dir> <fig_dir> <out_pdf>"""
-import os, re, sys
+import json, os, re, sys
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import cm
 from reportlab.lib import colors
@@ -311,7 +311,8 @@ st.append(code(
 python staffing.py medium_instance.json
 python staffing.py large_instance.json --resume large_run_prev.log   # continue after a stop
 python staffing.py gen4.json --plan 3 7      # schedule of one chosen point of the front
-python generate_instance.py gen4.json --staff 5 --jobs 12 --horizon 16 --quals 8 --seed 4"""))
+python generate_instance.py gen4.json --staff 5 --jobs 12 --horizon 16 --quals 8 --seed 4
+python value_of_person.py medium_instance.json --caps 6 8 --out medium_value_of_person.json"""))
 st.append(P("Each solve prints a line such as:"))
 st.append(code("[118/900] Pmax<=4 Dmax<=10 status=2 solve=2256.9s elapsed=19963s -> profit=700 P=4 D=10"))
 st.append(P("meaning: limits α = 4 and β = 10, status 2 = proven optimal, this solve took 2,257 s, and the best "
@@ -422,6 +423,34 @@ st.append(KeepTogether([img(os.path.join(proj, "generated", "gen4_schedule_P3_D7
                         P("Figure 6 — gen4, schedule of the front point (216, 3, 7), produced by "
                           "python staffing.py gen4.json --plan 3 7.", "cap")]))
 
+vop = json.load(open(os.path.join(proj, "medium_value_of_person.json")))
+vh = json.load(open(os.path.join(proj, "medium_instance.json")))["horizon"]
+vbase = vop["baseline"]["profit_no_limit"]
+vrows = sorted(vop["rows"], key=lambda r: (r["new_person"] == "all skills", -r["gain_no_limit"]))
+vtop = vrows[0]
+vall = next(r for r in vrows if r["new_person"] == "all skills")
+same_caps = all(r["gain_caps"] == r["gain_no_limit"] for r in vrows)
+st.append(P("4.5 What is one more person worth? (medium instance)", "h2"))
+st.append(P(f"A manager's question: which skill should the next hire have, and what is it worth? A MILP has no "
+            f"meaningful dual prices, so we answer it by re-solving. <b>value_of_person.py</b> adds one employee "
+            f"who is available all {vh} days and has a single skill, re-solves the model exactly, and repeats this for each of the "
+            f"{len(vrows) - 1} skills; a last case gives the new person every skill (upper bound)."))
+st.append(table([["New person's skill", "Best profit", "Gain", "Projects completed"]] +
+                [[r["new_person"], r["profit_no_limit"], f"+{r['gain_no_limit']}", r["projects_no_limit"]]
+                 for r in vrows] +
+                [["(nobody added)", vbase, "—", vop["baseline"]["projects_no_limit"]]],
+                [4 * cm, 3.2 * cm, 2.4 * cm, 3.8 * cm]))
+st.append(Spacer(1, 6))
+st.append(P(f"The best hire is a <b>{vtop['new_person']}</b> specialist: +{vtop['gain_no_limit']} "
+            f"({100 * vtop['gain_no_limit'] / vbase:.1f} %), with "
+            f"{vtop['projects_no_limit'] - vop['baseline']['projects_no_limit']} more projects completed. That is "
+            f"{100 * vtop['gain_no_limit'] / vall['gain_no_limit']:.0f} % of what a person with all ten skills "
+            f"would bring (+{vall['gain_no_limit']}). Skills B and H are worth only +4: they are not the "
+            f"bottleneck. The ranking does not simply follow scarcity: F has a single holder but ranks third, "
+            f"because the value depends on how skills compete for the same people over the same days."
+            + (f" The gains are identical under the limits of the best plan (at most {vop['caps'][0]} projects "
+               f"per employee, {vop['caps'][1]}-day projects)." if same_caps else "")))
+
 # ---------- 5. conclusion ----------
 st.append(P("5. Conclusions and possible next steps", "h1"))
 st += [
@@ -439,6 +468,9 @@ st += [
       "accepting 2 % less profit allows much shorter projects or a much lighter workload; on the large instance, "
       "about 1 % less profit (808) is enough to keep every employee at 6 projects or fewer (about 3 %, 794, if "
       "projects must also stay within 9 days)."),
+    B(f"Re-solving answers what-if questions too: on the medium instance, one more {vtop['new_person']} "
+      f"specialist is worth +{vtop['gain_no_limit']} profit, close to the +{vall['gain_no_limit']} of a person "
+      f"with every skill, while a B or H specialist adds only +4."),
 ]
 
 doc.build(st, onFirstPage=on_page, onLaterPages=on_page)
