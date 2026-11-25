@@ -157,7 +157,8 @@ Large & 6 staff, 25 proj., 36 days & $\approx$35 h, 347 solves & 817 \ (P$\le$9,
 \end{tabular}
 \vspace{1em}
 \begin{itemize}
-  \item We obtained \alert{proven optimal} Pareto fronts using Gurobi 13 (academic licence).
+  \item We obtained \alert{proven optimal} Pareto fronts using Gurobi 13 (academic licence).\\
+  {\footnotesize Each solve stops within Gurobi's 0.01\,\% gap, so the profit is exact (profits are integers). The $\varepsilon$ tie-break can leave $P$, $D$ slightly loose in one solve; the dominance filter removes such points, so the front is exact.}
   \item For the large instance, the best plan completes 17 of 25 projects, out of a total potential gain of 1\,020.
 \end{itemize}
 \end{frame}
@@ -186,15 +187,16 @@ Profit & P & D\\
 \end{frame}
 
 \begin{frame}{Results --- medium schedule (profit 413)}
-\centering\includegraphics[width=\textwidth,height=0.60\textheight,keepaspectratio]{medium_schedule.png}\par\medskip\small This schedule illustrates a plan earning \alert{413}, the highest profit in the medium instance. The workload and project duration are controlled by the chosen limits.
+\centering\includegraphics[width=\textwidth,height=0.60\textheight,keepaspectratio]{medium_schedule.png}\par\medskip\small Profit \alert{413}, the highest in the medium instance: 11 of the 15 projects are completed, with at most 6 projects per employee and no project longer than 8 days.
 \end{frame}
 
 \begin{frame}{Results --- large instance}
 \begin{columns}[c]
 \column{0.66\textwidth}
-\centering\includegraphics[width=\textwidth]{large_front.png}
+\centering\includegraphics[width=0.92\textwidth]{large_front.png}
 \column{0.32\textwidth}
-\small
+\centering\footnotesize
+{\scriptsize Selected Pareto points (of 92)}\\[0.2em]
 \begin{tabular}{rcc}
 \toprule
 Profit & P & D\\
@@ -204,12 +206,12 @@ Profit & P & D\\
 \bottomrule
 \end{tabular}
 \end{columns}
-\vspace{0.4em}
-\small By accepting about 3\% less profit (794), we reduce the maximum workload from 9 to 6 projects. Profit 817 is already reached with 7 projects per employee; 8 and 9 only shorten projects (11 $\to$ 8 days), 10--11 only help very short projects, and above 11 nothing changes.
+\vspace{0.3em}
+\small Profit 817 is already reached with 7 projects per employee. Going down to 6 costs about 1\,\% (808, 11-day projects), or 3\,\% (794) to keep projects within 9 days. Limits 8--9 only shorten projects (11 $\to$ 8 days), 10--11 only help very short ones; above 11 nothing changes.
 \end{frame}
 
 \begin{frame}{Results --- large schedule (profit 817)}
-\centering\includegraphics[width=\textwidth,height=0.60\textheight,keepaspectratio]{large_schedule.png}\par\medskip\small This plan reaches the maximum profit of \alert{817} and completes 17 of the 25 projects. The remaining projects are not selected.
+\centering\includegraphics[width=\textwidth,height=0.66\textheight,keepaspectratio]{large_schedule.png}\par\smallskip\small Days 1--18 (top) and 19--36 (bottom). Maximum profit \alert{817}: 17 of the 25 projects completed, at most 9 projects per employee, no project longer than 8 days.
 \end{frame}
 
 \begin{frame}{Instance generator}

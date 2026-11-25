@@ -187,18 +187,26 @@ def plot_front(front, fname="pareto.png"):
 
 
 def plot_schedule(plan, data, fname="schedule.png", title=None):
+    """Gantt chart of a plan; horizons over 24 days are drawn in two stacked halves to stay legible."""
     H, S = data[0], data[2]
-    fig, ax = plt.subplots(figsize=(1 + len(H) * 0.6, 1 + len(S) * 0.5))
+    half = (len(H) + 1) // 2
+    parts = [H[:half], H[half:]] if len(H) > 24 else [H]
+    width = 1 + len(parts[0]) * 0.6
+    fig, axes = plt.subplots(len(parts), 1, figsize=(width, len(parts) * (0.7 + len(S) * 0.5)),
+                             squeeze=False)
     cmap = plt.get_cmap("tab20")
     jobs = sorted({j for _, j, _, _ in plan})
-    for (i, j, k, t) in plan:
-        r = S.index(i)
-        ax.barh(r, 1, left=t - 0.5, color=cmap(jobs.index(j) % 20), edgecolor="white")
-        ax.text(t, r, f"{j},{k}", ha="center", va="center", fontsize=6)
-    ax.set_yticks(range(len(S))); ax.set_yticklabels(S); ax.set_xticks(H)
+    for ax, days in zip(axes[:, 0], parts):
+        for (i, j, k, t) in plan:
+            if t in days:
+                r = S.index(i)
+                ax.barh(r, 1, left=t - 0.5, color=cmap(jobs.index(j) % 20), edgecolor="white")
+                ax.text(t, r, f"{j},{k}", ha="center", va="center", fontsize=6)
+        ax.set_yticks(range(len(S))); ax.set_yticklabels(S); ax.set_xticks(days)
+        ax.set_xlim(days[0] - 0.5, days[0] - 0.5 + len(parts[0]))
     if title:
-        ax.set_title(title, loc="left", fontsize=9)
-    ax.set_xlabel("day"); plt.tight_layout(); plt.savefig(fname, dpi=200); plt.close()
+        axes[0, 0].set_title(title, loc="left", fontsize=9)
+    axes[-1, 0].set_xlabel("day"); plt.tight_layout(); plt.savefig(fname, dpi=200); plt.close()
 
 
 def take(args, flag, n):

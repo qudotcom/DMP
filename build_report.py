@@ -379,8 +379,8 @@ st.append(KeepTogether([
 st.append(Spacer(1, 6))
 st.append(P("Reading the front: profit 817 is the maximum, and it can be reached in three ways: 9 projects per "
             "employee with 8-day projects, 8 projects with 10-day projects, or 7 projects with 11-day projects. "
-            "Giving up about 3 % (profit 794) brings the workload down to 6 projects per employee with 9-day "
-            "projects; giving up about 4 % (782) allows 5 projects per employee. Allowing more than 7 projects per "
+            "Going down to 6 projects per employee costs only about 1 % (808, with 11-day projects), or about "
+            "3 % (794) if projects must stay within 9 days; about 4 % (782) allows 5 projects per employee. Allowing more than 7 projects per "
             "employee never adds profit: limits 8 and 9 keep profit 817 while shortening the longest project "
             "from 11 to 10 and then 8 days; limits 10 and 11 only appear on the front for very short projects "
             "(at most 5 days, e.g. profit 764 with 10 projects per employee and 5-day projects). Beyond 11, "
@@ -388,7 +388,8 @@ st.append(P("Reading the front: profit 817 is the maximum, and it can be reached
 st.append(P("The most profitable plan (profit 817, at most 9 projects per employee, longest project 8 days) "
             "completes 17 of the 25 projects."))
 st.append(img(os.path.join(proj, "large_schedule.png"), W))
-st.append(P("Figure 5 — Large instance, most profitable plan (profit 817).", "cap"))
+st.append(P("Figure 5 — Large instance, most profitable plan (profit 817): days 1–18 (top) and 19–36 (bottom).",
+            "cap"))
 st.append(P("<b>Run time.</b> Almost all the effort went into limits 3 to 8 (3–7 hours of solving each); the "
             "hardest single solve (8 projects per employee, 4-day projects) took 3 h 15. From limit 9 on, each "
             "limit took only about 25 minutes, because those limits no longer constrain the best plans."))
@@ -436,7 +437,8 @@ st += [
       "strengthening, e.g. lower bounds on each project's duration from its required days and available staff."),
     B("For decision makers, the fronts suggest sweet spots rather than the maximum: on the medium instance, "
       "accepting 2 % less profit allows much shorter projects or a much lighter workload; on the large instance, "
-      "3 % less profit (794) cuts the workload from 9 to 6 projects per employee."),
+      "about 1 % less profit (808) is enough to keep every employee at 6 projects or fewer (about 3 %, 794, if "
+      "projects must also stay within 9 days)."),
 ]
 
 doc.build(st, onFirstPage=on_page, onLaterPages=on_page)
