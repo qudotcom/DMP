@@ -380,8 +380,9 @@ st.append(Spacer(1, 6))
 st.append(P("Reading the front: profit 817 is the maximum, and it can be reached in three ways: 9 projects per "
             "employee with 8-day projects, 8 projects with 10-day projects, or 7 projects with 11-day projects. "
             "Giving up about 3 % (profit 794) brings the workload down to 6 projects per employee with 9-day "
-            "projects; giving up about 4 % (782) allows 5 projects per employee. Allowing more than 9 projects per "
-            "employee never adds profit; limits 10 and 11 only appear on the front for very short projects "
+            "projects; giving up about 4 % (782) allows 5 projects per employee. Allowing more than 7 projects per "
+            "employee never adds profit: limits 8 and 9 keep profit 817 while shortening the longest project "
+            "from 11 to 10 and then 8 days; limits 10 and 11 only appear on the front for very short projects "
             "(at most 5 days, e.g. profit 764 with 10 projects per employee and 5-day projects). Beyond 11, "
             "nothing changes.", "note"))
 st.append(P("The most profitable plan (profit 817, at most 9 projects per employee, longest project 8 days) "
@@ -428,8 +429,9 @@ st += [
       "the two formulations agree exactly where both were run."),
     B("Modelling choices matter more than hardware: replacing big-M constraints by a time-window "
       "formulation sped hard solves up by 3–28×. (A GPU would not help: Gurobi's MIP solver runs on CPU.)"),
-    B("On the large instance, workload limits above 9 never raised the best profit, but they did add a few "
-      "trade-offs for very short projects, so stopping the sweep early would have lost points. To go faster on "
+    B("On the large instance, workload limits above 7 never raised the best profit, but they still added "
+      "points: 8 and 9 reach the same profit with shorter projects, and 10 and 11 add a few trade-offs for very "
+      "short projects, so stopping the sweep early would have lost points. To go faster on "
       "bigger instances: a time limit per solve (near-optimal points, flagged as such), or further "
       "strengthening, e.g. lower bounds on each project's duration from its required days and available staff."),
     B("For decision makers, the fronts suggest sweet spots rather than the maximum: on the medium instance, "
