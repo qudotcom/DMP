@@ -222,22 +222,39 @@ def draw_cover(c, doc):
     c.setFillColor(MUTED)
     c.drawString(x0, y - 5.0 * cm, "Exact Pareto fronts for profit, workload and project duration")
 
-    # stylised Gantt chart: rows of days, a nod to the schedules in the report
+    # Gantt-style schedule whose dark bars spell "DMP"; the other days are filled with light bars
+    letters = {
+        "D": ["####.", "#...#", "#...#", "#...#", "#...#", "#...#", "####."],
+        "M": ["#...#", "##.##", "#.#.#", "#.#.#", "#...#", "#...#", "#...#"],
+        "P": ["####.", "#...#", "#...#", "####.", "#....", "#....", "#...."],
+    }
+    grid = ["." + letters["D"][r] + ".." + letters["M"][r] + ".." + letters["P"][r] + "." for r in range(7)]
     rng = random.Random(7)
-    tints = ["#8C1515", "#B5524F", "#D9A3A1", "#D2C295", "#E8DDBE", "#9A9CA1", "#C9CACD"]
-    cols, rows = 22, 6
-    gx0, gx1, gtop = x0, pw - 2 * cm, ph - 15.85 * cm
-    cw, rh = (gx1 - gx0) / cols, 0.62 * cm
-    for r in range(rows):
-        t = rng.randint(0, 2)
+    light = ["#EFE9DA", "#F2EEE4", "#ECECEE", "#F1F1F2"]
+    dark = ["#8C1515", "#9E2A26", "#7A1010"]
+    cols = len(grid[0])
+    gx0, gx1, gtop = x0, pw - 2 * cm, ph - 15.6 * cm
+    cw, rh, gap = (gx1 - gx0) / cols, 0.5 * cm, 0.16 * cm
+    for r, row in enumerate(grid):
+        ytop = gtop - r * (rh + gap)
+        t = 0
         while t < cols:
-            length = min(rng.randint(2, 6), cols - t)
-            c.setFillColor(colors.HexColor(rng.choice(tints)))
-            c.setFillAlpha(0.55 if r % 2 else 0.8)
-            c.roundRect(gx0 + t * cw + 1, gtop - r * (rh + 0.18 * cm) - rh, length * cw - 2, rh, 2.5,
-                        stroke=0, fill=1)
-            t += length + rng.randint(0, 2)
-    c.setFillAlpha(1)
+            on = row[t] == "#"
+            end = t
+            while end < cols and (row[end] == "#") == on:
+                end += 1
+            if on:                                   # one bar per run of letter cells
+                c.setFillColor(colors.HexColor(rng.choice(dark)))
+                c.roundRect(gx0 + t * cw + 1.5, ytop - rh, (end - t) * cw - 3, rh, 2.5, stroke=0, fill=1)
+            else:                                    # background run cut into short light bars
+                s = t
+                while s < end:
+                    length = min(rng.randint(1, 3), end - s)
+                    if rng.random() < 0.65:
+                        c.setFillColor(colors.HexColor(rng.choice(light)))
+                        c.roundRect(gx0 + s * cw + 1.5, ytop - rh, length * cw - 3, rh, 2.5, stroke=0, fill=1)
+                    s += length
+            t = end
 
     # authors, place and date, link
     yb = 5.6 * cm
