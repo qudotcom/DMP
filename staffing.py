@@ -8,10 +8,16 @@ Pareto front via epsilon-constraint on (f2, f3).
 Usage: python staffing.py toy_instance.json [--prefix toy_] [--resume previous_progress.log]
        python staffing.py toy_instance.json --plan 2 3      (one chosen point of the front)
 """
-import json, sys, itertools, time, re
+import json
+import re
+import sys
+import time
+
 import gurobipy as gp
-from gurobipy import GRB
 import matplotlib.pyplot as plt
+from gurobipy import GRB
+from matplotlib.colors import LinearSegmentedColormap
+from matplotlib.ticker import MaxNLocator
 
 
 def load(path):
@@ -178,18 +184,13 @@ def describe(plan, data):
               f"  late {late} d (-{c[j] * late})  staff: {', '.join(who)}")
 
 
-CUBE_CMAP = None
+CUBE_CMAP = LinearSegmentedColormap.from_list("cardinal", ["#F3D3D3", "#C0504D", "#8C1515", "#4A0B0B"])
 
 
 def draw_cube(ax, pts, title=None, fs=1.0):
-    """3-D Pareto 'cube': x = projects per employee, y = longest project, z = profit.
-    Points are coloured by profit (pale to cardinal), each with a stem down to the floor so its
-    (P, D) position can be read; the best-profit points get a dark outline."""
-    from matplotlib.colors import LinearSegmentedColormap
-    from matplotlib.ticker import MaxNLocator
-    global CUBE_CMAP
-    if CUBE_CMAP is None:
-        CUBE_CMAP = LinearSegmentedColormap.from_list("cardinal", ["#F3D3D3", "#C0504D", "#8C1515", "#4A0B0B"])
+    """3-D view of a front: x = projects per employee, y = longest project, z = profit.
+    Colour follows the profit, a vertical line drops each point to its (P, D) position on the floor,
+    and the points with the best profit are circled. fs scales the fonts and markers."""
     pts = [p for p in pts if p[0] > 0]
     xs, ys, zs = [p[1] for p in pts], [p[2] for p in pts], [p[0] for p in pts]
     best = max(zs)
@@ -221,7 +222,7 @@ def plot_front(front, fname="pareto.png", title="Pareto front"):
 
 
 def plot_schedule(plan, data, fname="schedule.png", title=None):
-    """Gantt chart of a plan; horizons over 24 days are drawn in two stacked halves to stay legible."""
+    """Gantt chart of a plan. Horizons longer than 24 days are drawn in two halves, one above the other."""
     H, S = data[0], data[2]
     half = (len(H) + 1) // 2
     parts = [H[:half], H[half:]] if len(H) > 24 else [H]
