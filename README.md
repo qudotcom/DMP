@@ -1,6 +1,6 @@
 # CompuOpti staffing: a multi-objective MILP
 
-Decision Modelling project (CentraleSupélec), by Abdelouahed TAHRI, Lucien DESMOULINS and Eric KAMBIRÉ.
+Decision Modelling project (CentraleSupélec), by Abdelouahed TAHRI, Lucien DESMOULINS and Eric KAMBIRÉ.  
 
 Employees are assigned to (project, skill) pairs day by day. We compute all the non-dominated plans for
 three criteria:
