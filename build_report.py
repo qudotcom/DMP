@@ -8,7 +8,6 @@ import re
 import sys
 
 from reportlab.lib import colors
-from reportlab.lib.enums import TA_CENTER
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import cm
@@ -49,13 +48,6 @@ S = {
                            borderPadding=(6, 6, 6, 6), leftIndent=6, rightIndent=6, spaceBefore=4, spaceAfter=10),
     "math": ParagraphStyle("math", **base, fontSize=10, leading=15, leftIndent=18, spaceAfter=3),
     "note": ParagraphStyle("note", **base, fontSize=9.5, leading=13.5),
-    # cover page
-    "c_title": ParagraphStyle("c_title", fontName="Helvetica-Bold", fontSize=26, leading=32, textColor=CARDINAL,
-                              alignment=TA_CENTER),
-    "c_sub": ParagraphStyle("c_sub", fontName="Helvetica", fontSize=14, leading=19, textColor=INK,
-                            alignment=TA_CENTER),
-    "c_text": ParagraphStyle("c_text", fontName="Helvetica", fontSize=11.5, leading=17, textColor=INK,
-                             alignment=TA_CENTER),
 }
 
 
@@ -189,12 +181,93 @@ class NumberedCanvas(rl_canvas.Canvas):
         super().save()
 
 
-def cover_decoration(c, doc):
+def draw_cover(c, doc):
+    """Cover page, drawn directly on the canvas."""
+    import random
+    pw, ph = A4
+    x0 = 3.2 * cm                      # left edge of the text block
     c.saveState()
+
+    # red band on the left, thin sandstone line next to it
     c.setFillColor(CARDINAL)
-    c.rect(0, 0, A4[0], 1.6 * cm, stroke=0, fill=1)
+    c.rect(0, 0, 1.5 * cm, ph, stroke=0, fill=1)
     c.setFillColor(SANDSTONE)
-    c.rect(0, 1.6 * cm, A4[0], 0.15 * cm, stroke=0, fill=1)
+    c.rect(1.5 * cm, 0, 0.12 * cm, ph, stroke=0, fill=1)
+
+    # logo and course name
+    lw = 5.2 * cm
+    iw, ih = ImageReader(os.path.join(proj, "centralesupelec_logo.png")).getSize()
+    lh = lw * ih / iw
+    c.drawImage(os.path.join(proj, "centralesupelec_logo.png"), x0, ph - 1.9 * cm - lh, lw, lh, mask="auto")
+    c.setFillColor(MUTED)
+    c.setFont("Helvetica", 10)
+    c.drawRightString(pw - 2 * cm, ph - 2.6 * cm, "Decision Modelling")
+    c.drawRightString(pw - 2 * cm, ph - 3.15 * cm, "Project report, 2026")
+
+    # title block
+    y = ph - 9.4 * cm
+    c.setFillColor(colors.HexColor("#A8925A"))
+    c.setFont("Helvetica-Bold", 10)
+    c.drawString(x0, y, "P R O J E C T   R E P O R T")
+    c.setFillColor(CARDINAL)
+    c.setFont("Helvetica-Bold", 34)
+    c.drawString(x0, y - 1.45 * cm, "Staffing Collaborators")
+    c.drawString(x0, y - 2.75 * cm, "on Projects")
+    c.setFillColor(CARDINAL)
+    c.rect(x0, y - 3.45 * cm, 3.2 * cm, 0.12 * cm, stroke=0, fill=1)
+    c.setFillColor(INK)
+    c.setFont("Helvetica", 15)
+    c.drawString(x0, y - 4.35 * cm, SUBTITLE)
+    c.setFont("Helvetica", 11)
+    c.setFillColor(MUTED)
+    c.drawString(x0, y - 5.0 * cm, "Exact Pareto fronts for profit, workload and project duration")
+
+    # stylised Gantt chart: rows of days, a nod to the schedules in the report
+    rng = random.Random(7)
+    tints = ["#8C1515", "#B5524F", "#D9A3A1", "#D2C295", "#E8DDBE", "#9A9CA1", "#C9CACD"]
+    cols, rows = 22, 6
+    gx0, gx1, gtop = x0, pw - 2 * cm, ph - 15.85 * cm
+    cw, rh = (gx1 - gx0) / cols, 0.62 * cm
+    for r in range(rows):
+        t = rng.randint(0, 2)
+        while t < cols:
+            length = min(rng.randint(2, 6), cols - t)
+            c.setFillColor(colors.HexColor(rng.choice(tints)))
+            c.setFillAlpha(0.55 if r % 2 else 0.8)
+            c.roundRect(gx0 + t * cw + 1, gtop - r * (rh + 0.18 * cm) - rh, length * cw - 2, rh, 2.5,
+                        stroke=0, fill=1)
+            t += length + rng.randint(0, 2)
+    c.setFillAlpha(1)
+
+    # authors, place and date, link
+    yb = 5.6 * cm
+    c.setFillColor(colors.HexColor("#A8925A"))
+    c.setFont("Helvetica-Bold", 9)
+    c.drawString(x0, yb + 1.9 * cm, "A U T H O R S")
+    # the three names on one line, in three equal columns
+    colw = (pw - 2 * cm - x0) / len(AUTHORS)
+    c.setFillColor(INK)
+    c.setFont("Helvetica-Bold", 12)
+    for k, a in enumerate(AUTHORS):
+        c.drawString(x0 + k * colw, yb + 1.0 * cm, a)
+    c.setFont("Helvetica", 11)
+    c.setFillColor(MUTED)
+    c.drawString(x0, yb - 0.1 * cm, "CentraleSupélec, November 2026")
+
+    # bottom line with the repository link
+    c.setStrokeColor(colors.HexColor("#D5D5D5"))
+    c.setLineWidth(0.6)
+    c.line(x0, 2.6 * cm, pw - 2 * cm, 2.6 * cm)
+    c.setFillColor(MUTED)
+    c.setFont("Helvetica", 9.5)
+    label = "Source code and results:  "
+    c.drawString(x0, 1.9 * cm, label)
+    lx = x0 + c.stringWidth(label, "Helvetica", 9.5)
+    link = REPO.replace("https://", "")
+    c.setFillColor(CARDINAL)
+    c.setFont("Helvetica-Bold", 9.5)
+    c.drawString(lx, 1.9 * cm, link)
+    c.linkURL(REPO, (lx, 1.8 * cm, lx + c.stringWidth(link, "Helvetica-Bold", 9.5), 2.3 * cm), relative=0)
     c.restoreState()
 
 
@@ -203,19 +276,8 @@ doc = SimpleDocTemplate(out, pagesize=A4, leftMargin=2 * cm, rightMargin=2 * cm,
 W = A4[0] - 4 * cm
 st = []
 
-# ---------- cover page ----------
-logo = img(os.path.join(proj, "centralesupelec_logo.png"), 7 * cm)
-logo.hAlign = "CENTER"
-st += [Spacer(1, 2.2 * cm), logo, Spacer(1, 2.6 * cm),
-       P(TITLE, "c_title"), Spacer(1, 0.4 * cm),
-       P(SUBTITLE, "c_sub"), Spacer(1, 0.3 * cm),
-       HRFlowable(width="35%", thickness=1.5, color=CARDINAL, spaceBefore=6, spaceAfter=6),
-       P("Decision Modelling project", "c_text"), Spacer(1, 2.2 * cm),
-       P("<br/>".join(f"<b>{a}</b>" for a in AUTHORS), "c_text"), Spacer(1, 2.2 * cm),
-       P("CentraleSupélec, November 2026", "c_text"), Spacer(1, 0.3 * cm),
-       P(f'Source code: <link href="{REPO}" color="#8C1515"><u>{REPO.replace("https://", "")}</u></link>',
-         "c_text"),
-       PageBreak()]
+# ---------- cover page (drawn by draw_cover) ----------
+st += [Spacer(1, 1), PageBreak()]
 
 # ---------- summary ----------
 st.append(P("Summary", "h1"))
@@ -588,5 +650,5 @@ st += [
       f"{vtop['gain_no_limit'] / vh:.1f}."),
 ]
 
-doc.build(st, onFirstPage=cover_decoration, canvasmaker=NumberedCanvas)
+doc.build(st, onFirstPage=draw_cover, canvasmaker=NumberedCanvas)
 print("written", out)
