@@ -151,11 +151,12 @@ size (vars / constraints) & 4\,191 / 12\,149 & 6\,816 / 6\,973 & \\
 Instance & Size & Run & Best profit & Pareto pts\\
 \midrule
 Toy & 3 staff, 5 proj., 5 days & 0.5 s & 65 \ (P$\le$3, D$\le$2) & 9\\
-Medium & 5 staff, 15 proj., 22 days & 72 min, 144 solves & 413 \ (P$\le$6, D$\le$8) & 46\\
-Large & 6 staff, 25 proj., 36 days & $\approx$35 h, 347 solves & 817 \ (P$\le$9, D$\le$8) & 92\\
+Medium & 5 staff, 15 proj., 22 days & 23 min, 151 solves & 413 \ (P$\le$6, D$\le$8) & 46\\
+Large & 6 staff, 25 proj., 36 days & $\approx$35 h$^*$, 347 solves & 817 \ (P$\le$9, D$\le$8) & 92\\
 \bottomrule
-\end{tabular}
-\vspace{1em}
+\end{tabular}\\[0.2em]
+{\scriptsize Whole sweep, all 8 cores, idle machine. $^*$Cumulated solver time of a run interrupted and resumed.}
+\vspace{0.6em}
 \begin{itemize}
   \item We obtained \alert{proven optimal} Pareto fronts using Gurobi 13 (academic licence).\\
   {\footnotesize Profit exact (0.01\,\% gap, integer profits); $P$ and $D$ can be slightly loose in one solve, the dominance filter removes them.}
@@ -277,11 +278,12 @@ gen1 & 3 & 6 & 8 & 4 & 21 & 1.7 s & 9 & 76, 4, 3\\
 gen2 & 4 & 8 & 10 & 5 & 45 & 8.4 s & 17 & 103, 3, 5\\
 gen3 & 4 & 10 & 14 & 6 & 73 & 90 s & 31 & 180, 5, 5\\
 gen4 & 5 & 12 & 16 & 8 & 101 & 56 s & 28 & 222, 4, 8\\
-medium (given) & 5 & 15 & 22 & 10 & 144 & 72 min & 46 & 413, 6, 8\\
-large (given) & 6 & 25 & 36 & 10 & 347 & $\approx$35 h & 92 & 817, 9, 8\\
+medium (given) & 5 & 15 & 22 & 10 & 151 & 23 min & 46 & 413, 6, 8\\
+large (given) & 6 & 25 & 36 & 10 & 347 & $\approx$35 h$^*$ & 92 & 817, 9, 8\\
 \bottomrule
-\end{tabular}
-\vspace{0.8em}
+\end{tabular}\\[0.2em]
+{\scriptsize Time: whole sweep, all 8 cores, idle machine. $^*$Large: cumulated solver time of a run interrupted and resumed.}
+\vspace{0.5em}
 \begin{itemize}
   \item As projects and days increase, we need more solves. The time per solve grows even faster.
   \item Size is not the only factor: gen4 is larger than gen3, but solves faster.
@@ -304,7 +306,7 @@ Here we earn \alert{216} with at most 3 projects per employee and a 7-day durati
 \begin{frame}{Conclusion}
 \begin{itemize}\setlength{\itemsep}{0.4em}
   \item \alert{Exact optimization:} We solved all three given instances and four generated instances with Gurobi.
-  \item \alert{Fewer solves:} The jump strategy finds the complete Pareto front (144 instead of 330 solves for the medium instance).
+  \item \alert{Fewer solves:} The jump strategy finds the complete Pareto front (151 instead of 330 solves for the medium instance).
   \item \alert{Faster model:} The time-window formulation makes difficult solves up to 28 times faster.
   \item \alert{Practical trade-offs:} A small reduction in profit can significantly reduce workload or project duration.
   \item \alert{Decision support:} One more D specialist brings +12.6\,\% profit (+2 projects), worth it if a person-day costs under 2.4.

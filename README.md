@@ -22,7 +22,7 @@ The model is solved exactly with Gurobi. The Pareto front comes from the epsilon
 | `toy/medium/large_instance.json` | Given instances |
 | `generated/` | Generated instances `gen1`–`gen4`, with their fronts, plots and run logs |
 | `*_front.txt`, `*_pareto.png`, `*_schedule.png` | Results for the given instances |
-| `large_run.log` | Progress log of the large run (one line per solve) |
+| `large_run.log`, `medium_run.log` | Progress logs of the large and medium runs (one line per solve) |
 | `slides.tex` / `slides.pdf` | Defense slides |
 | `staffing_report.pdf`, `build_report.py`, `figs.py` | Written report and the scripts that build it |
 | `bigM_vs_timewindow.tex` / `.pdf` | One-page note (in French): big-M vs time-window formulation |
@@ -50,7 +50,7 @@ python plot_cubes.py
 | gen2 | 4 / 8 / 10 | 8.4 s | 17 | 103, 3, 5 |
 | gen3 | 4 / 10 / 14 | 90 s | 31 | 180, 5, 5 |
 | gen4 | 5 / 12 / 16 | 56 s | 28 | 222, 4, 8 |
-| medium | 5 / 15 / 22 | 72 min | 46 | 413, 6, 8 |
+| medium | 5 / 15 / 22 | 23 min | 46 | 413, 6, 8 |
 | large | 6 / 25 / 36 | ≈ 35 h of solver time | 92 | 817, 9, 8 |
 
 In the last column, P is the largest number of projects per employee and D the length of the longest project, in days.

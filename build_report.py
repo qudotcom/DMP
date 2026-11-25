@@ -208,7 +208,7 @@ st.append(Spacer(1, 6))
 st.append(table([
     ["Instance", "Size", "Status", "Best profit found", "Pareto points"],
     ["Toy", "3 staff, 5 projects, 5 days", "Done (0.5 s)", "65 (≤ 3 projects/employee, longest project 2 days)", "9"],
-    ["Medium", "5 staff, 15 projects, 22 days", "Done (72 min with new model)", "413 (≤ 6 projects/employee, longest 8 days)", "46"],
+    ["Medium", "5 staff, 15 projects, 22 days", "Done (23 min, 151 solves)", "413 (≤ 6 projects/employee, longest 8 days)", "46"],
     ["Large", "6 staff, 25 projects, 36 days", f"Done ({len(done)} solves, about {lhours:.0f} h of solver time)",
      f"{lbest[0]} (≤ {lbest[1]} projects/employee, longest {lbest[2]} days)",
      f"{len(lfront)}"],
@@ -298,7 +298,7 @@ st.append(P("<b>The shortcut (“jump”).</b> For a fixed α, we try β from th
             "horizon) downwards. If the best plan under limit β has its longest project at only D days, then the "
             "same plan is also best for every limit between D and β (it is still allowed, and nothing better "
             "was allowed). So we jump straight to β = D − 1. This gives exactly the same front with far "
-            "fewer solves (toy: 12 instead of 25; medium: 144 instead of 330).", "note"))
+            "fewer solves (toy: 12 instead of 25; medium: 151 instead of 330).", "note"))
 
 st.append(P("2.5 Why the start/end modelling matters (big-M vs time window)", "h2"))
 st.append(P("The first version of the model described start and end days with integer variables "
@@ -326,7 +326,7 @@ st.append(table([
     ["Test", "Old model", "New model", "Result (identical)"],
     ["Large, α=4, β=13 (one solve)", "644 s", "227 s (2.8× faster)", "profit 726, P=4, D=13"],
     ["Large, α=4, β=9 (one solve)", "7,071 s (1 h 58)", "251 s (28× faster)", "profit 670, P=4, D=9"],
-    ["Medium, whole front", "3 h 37 (all cores, 330 solves)", "72 min (2 cores, 144 solves)", "same 46-point front"],
+    ["Medium, whole front", "3 h 37 (all cores, 330 solves)", "23 min (all cores, 151 solves)", "same 46-point front"],
     ["Toy, whole front", "about 5 s", "0.5 s", "same 9-point front"],
 ], [4.6 * cm, 3.8 * cm, 3.8 * cm, 4.2 * cm]))
 
@@ -391,7 +391,7 @@ st += [
       "pairs already solved were kept and the run continued where it stopped."),
     B("<b>Tie-break precision.</b> Gurobi stops when it is within 0.01 % of the optimum, which can be larger "
       "than the ε tie-breaker. Then a solve may return, say, (808, P=6, D=13) instead of (808, 6, 11). The "
-      "final front is still correct (the dominated point is filtered out), but one or two extra solves are spent."),
+      "final front is still correct (the dominated point is filtered out), but a few extra solves are spent, and their number can change from run to run (medium: 144 solves in one run, 151 in another, same 46 points)."),
 ]
 
 # ---------- 4. results ----------
@@ -474,10 +474,12 @@ st.append(table([
     ["gen2", "4 / 8 / 10 / 5", "45", "8.4 s", "17", "103, 3, 5"],
     ["gen3", "4 / 10 / 14 / 6", "73", "90 s", "31", "180, 5, 5"],
     ["gen4", "5 / 12 / 16 / 8", "101", "56 s", "28", "222, 4, 8"],
-    ["medium (given)", "5 / 15 / 22 / 10", "144", "72 min", "46", "413, 6, 8"],
-    ["large (given)", "6 / 25 / 36 / 10", "347", "≈ 35 h", "92", "817, 9, 8"],
+    ["medium (given)", "5 / 15 / 22 / 10", "151", "23 min", "46", "413, 6, 8"],
+    ["large (given)", "6 / 25 / 36 / 10", "347", "≈ 35 h*", "92", "817, 9, 8"],
 ], [2.8 * cm, 4.4 * cm, 1.6 * cm, 1.8 * cm, 1.5 * cm, 3.6 * cm]))
 st.append(Spacer(1, 6))
+st.append(P("Times are for the whole sweep on an idle machine with all 8 cores. * Large: cumulated solver time of "
+            "a run that was interrupted and resumed, not wall-clock time.", "cap"))
 st.append(P("The number of solves grows roughly with projects × days, but the time per solve grows much faster, "
             "and size alone does not decide difficulty: gen4 is bigger than gen3 yet solved faster."))
 st.append(P("<b>Decision space for any point.</b> Every point of the front can be opened as a schedule with "

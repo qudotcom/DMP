@@ -1,0 +1,205 @@
+start 2026-11-25 18:16:18
+Set parameter Username
+Set parameter LicenseID to value 2880001
+Academic license - for non-commercial use only - expires 2027-10-30
+[22/330] Pmax<=1 Dmax<=22 status=2 solve=1.0s elapsed=1s -> profit=194 P=1 D=12
+[11/330] Pmax<=1 Dmax<=11 status=2 solve=1.2s elapsed=2s -> profit=180 P=1 D=8
+[7/330] Pmax<=1 Dmax<=7 status=2 solve=1.3s elapsed=3s -> profit=130 P=1 D=6
+[5/330] Pmax<=1 Dmax<=5 status=2 solve=1.7s elapsed=5s -> profit=120 P=1 D=5
+[4/330] Pmax<=1 Dmax<=4 status=2 solve=2.7s elapsed=8s -> profit=90 P=1 D=4
+[3/330] Pmax<=1 Dmax<=3 status=2 solve=1.4s elapsed=9s -> profit=80 P=1 D=3
+[2/330] Pmax<=1 Dmax<=2 status=2 solve=0.6s elapsed=10s -> profit=30 P=1 D=2
+[1/330] Pmax<=1 Dmax<=1 status=2 solve=0.0s elapsed=10s -> profit=0 P=0 D=0
+[44/330] Pmax<=2 Dmax<=22 status=2 solve=4.4s elapsed=14s -> profit=326 P=2 D=12
+[33/330] Pmax<=2 Dmax<=11 status=2 solve=3.2s elapsed=17s -> profit=325 P=2 D=9
+[30/330] Pmax<=2 Dmax<=8 status=2 solve=4.5s elapsed=22s -> profit=305 P=2 D=8
+[29/330] Pmax<=2 Dmax<=7 status=2 solve=4.2s elapsed=26s -> profit=245 P=2 D=6
+[27/330] Pmax<=2 Dmax<=5 status=2 solve=4.6s elapsed=31s -> profit=232 P=2 D=5
+[26/330] Pmax<=2 Dmax<=4 status=2 solve=3.7s elapsed=34s -> profit=210 P=2 D=4
+[25/330] Pmax<=2 Dmax<=3 status=2 solve=2.3s elapsed=37s -> profit=155 P=2 D=3
+[24/330] Pmax<=2 Dmax<=2 status=2 solve=0.6s elapsed=37s -> profit=30 P=1 D=2
+[23/330] Pmax<=2 Dmax<=1 status=2 solve=0.0s elapsed=37s -> profit=0 P=0 D=0
+[66/330] Pmax<=3 Dmax<=22 status=2 solve=19.6s elapsed=57s -> profit=382 P=3 D=12
+[55/330] Pmax<=3 Dmax<=11 status=2 solve=16.2s elapsed=73s -> profit=379 P=3 D=9
+[52/330] Pmax<=3 Dmax<=8 status=2 solve=12.9s elapsed=86s -> profit=370 P=3 D=8
+[51/330] Pmax<=3 Dmax<=7 status=2 solve=17.4s elapsed=103s -> profit=346 P=3 D=7
+[50/330] Pmax<=3 Dmax<=6 status=2 solve=16.0s elapsed=119s -> profit=343 P=3 D=6
+[49/330] Pmax<=3 Dmax<=5 status=2 solve=12.5s elapsed=132s -> profit=322 P=3 D=5
+[48/330] Pmax<=3 Dmax<=4 status=2 solve=5.1s elapsed=137s -> profit=279 P=3 D=4
+[47/330] Pmax<=3 Dmax<=3 status=2 solve=2.7s elapsed=140s -> profit=195 P=3 D=3
+[46/330] Pmax<=3 Dmax<=2 status=2 solve=0.6s elapsed=140s -> profit=30 P=1 D=2
+[45/330] Pmax<=3 Dmax<=1 status=2 solve=0.0s elapsed=140s -> profit=0 P=0 D=0
+[88/330] Pmax<=4 Dmax<=22 status=2 solve=6.1s elapsed=146s -> profit=405 P=4 D=12
+[77/330] Pmax<=4 Dmax<=11 status=2 solve=7.7s elapsed=154s -> profit=404 P=4 D=9
+[74/330] Pmax<=4 Dmax<=8 status=2 solve=42.1s elapsed=196s -> profit=401 P=4 D=8
+[73/330] Pmax<=4 Dmax<=7 status=2 solve=38.7s elapsed=235s -> profit=386 P=4 D=7
+[72/330] Pmax<=4 Dmax<=6 status=2 solve=26.9s elapsed=262s -> profit=385 P=4 D=6
+[71/330] Pmax<=4 Dmax<=5 status=2 solve=36.0s elapsed=298s -> profit=365 P=4 D=5
+[70/330] Pmax<=4 Dmax<=4 status=2 solve=14.1s elapsed=312s -> profit=331 P=4 D=4
+[69/330] Pmax<=4 Dmax<=3 status=2 solve=2.9s elapsed=315s -> profit=225 P=4 D=3
+[68/330] Pmax<=4 Dmax<=2 status=2 solve=0.6s elapsed=316s -> profit=30 P=1 D=2
+[67/330] Pmax<=4 Dmax<=1 status=2 solve=0.0s elapsed=316s -> profit=0 P=0 D=0
+[110/330] Pmax<=5 Dmax<=22 status=2 solve=3.3s elapsed=319s -> profit=413 P=5 D=11
+[98/330] Pmax<=5 Dmax<=10 status=2 solve=8.6s elapsed=327s -> profit=413 P=5 D=10
+[97/330] Pmax<=5 Dmax<=9 status=2 solve=9.3s elapsed=337s -> profit=410 P=5 D=8
+[95/330] Pmax<=5 Dmax<=7 status=2 solve=34.9s elapsed=372s -> profit=403 P=5 D=6
+[93/330] Pmax<=5 Dmax<=5 status=2 solve=65.6s elapsed=437s -> profit=389 P=5 D=5
+[92/330] Pmax<=5 Dmax<=4 status=2 solve=38.6s elapsed=476s -> profit=356 P=5 D=4
+[91/330] Pmax<=5 Dmax<=3 status=2 solve=1.6s elapsed=477s -> profit=250 P=5 D=3
+[90/330] Pmax<=5 Dmax<=2 status=2 solve=0.6s elapsed=478s -> profit=30 P=1 D=2
+[89/330] Pmax<=5 Dmax<=1 status=2 solve=0.0s elapsed=478s -> profit=0 P=0 D=0
+[132/330] Pmax<=6 Dmax<=22 status=2 solve=2.3s elapsed=480s -> profit=413 P=6 D=11
+[120/330] Pmax<=6 Dmax<=10 status=2 solve=2.7s elapsed=483s -> profit=413 P=6 D=8
+[117/330] Pmax<=6 Dmax<=7 status=2 solve=7.1s elapsed=490s -> profit=411 P=6 D=7
+[116/330] Pmax<=6 Dmax<=6 status=2 solve=13.9s elapsed=504s -> profit=408 P=6 D=6
+[115/330] Pmax<=6 Dmax<=5 status=2 solve=26.2s elapsed=530s -> profit=403 P=6 D=5
+[114/330] Pmax<=6 Dmax<=4 status=2 solve=38.1s elapsed=568s -> profit=374 P=6 D=4
+[113/330] Pmax<=6 Dmax<=3 status=2 solve=1.5s elapsed=570s -> profit=265 P=6 D=3
+[112/330] Pmax<=6 Dmax<=2 status=2 solve=0.5s elapsed=570s -> profit=30 P=1 D=2
+[111/330] Pmax<=6 Dmax<=1 status=2 solve=0.0s elapsed=570s -> profit=0 P=0 D=0
+[154/330] Pmax<=7 Dmax<=22 status=2 solve=2.8s elapsed=573s -> profit=413 P=6 D=10
+[141/330] Pmax<=7 Dmax<=9 status=2 solve=3.1s elapsed=576s -> profit=413 P=7 D=8
+[139/330] Pmax<=7 Dmax<=7 status=2 solve=5.0s elapsed=581s -> profit=411 P=7 D=6
+[137/330] Pmax<=7 Dmax<=5 status=2 solve=10.0s elapsed=591s -> profit=406 P=7 D=5
+[136/330] Pmax<=7 Dmax<=4 status=2 solve=34.0s elapsed=625s -> profit=380 P=7 D=4
+[135/330] Pmax<=7 Dmax<=3 status=2 solve=1.5s elapsed=627s -> profit=265 P=6 D=3
+[134/330] Pmax<=7 Dmax<=2 status=2 solve=0.5s elapsed=627s -> profit=30 P=1 D=2
+[133/330] Pmax<=7 Dmax<=1 status=2 solve=0.0s elapsed=627s -> profit=0 P=0 D=0
+[176/330] Pmax<=8 Dmax<=22 status=2 solve=2.1s elapsed=629s -> profit=413 P=7 D=9
+[162/330] Pmax<=8 Dmax<=8 status=2 solve=2.9s elapsed=632s -> profit=413 P=7 D=8
+[161/330] Pmax<=8 Dmax<=7 status=2 solve=5.6s elapsed=638s -> profit=411 P=6 D=7
+[160/330] Pmax<=8 Dmax<=6 status=2 solve=6.3s elapsed=644s -> profit=411 P=8 D=6
+[159/330] Pmax<=8 Dmax<=5 status=2 solve=8.5s elapsed=653s -> profit=406 P=7 D=5
+[158/330] Pmax<=8 Dmax<=4 status=2 solve=32.0s elapsed=685s -> profit=380 P=7 D=4
+[157/330] Pmax<=8 Dmax<=3 status=2 solve=1.6s elapsed=686s -> profit=265 P=6 D=3
+[156/330] Pmax<=8 Dmax<=2 status=2 solve=0.6s elapsed=687s -> profit=30 P=1 D=2
+[155/330] Pmax<=8 Dmax<=1 status=2 solve=0.0s elapsed=687s -> profit=0 P=0 D=0
+[198/330] Pmax<=9 Dmax<=22 status=2 solve=3.1s elapsed=690s -> profit=413 P=5 D=14
+[189/330] Pmax<=9 Dmax<=13 status=2 solve=4.0s elapsed=694s -> profit=413 P=6 D=11
+[186/330] Pmax<=9 Dmax<=10 status=2 solve=3.2s elapsed=697s -> profit=413 P=6 D=10
+[185/330] Pmax<=9 Dmax<=9 status=2 solve=2.9s elapsed=700s -> profit=413 P=6 D=9
+[184/330] Pmax<=9 Dmax<=8 status=2 solve=3.3s elapsed=704s -> profit=413 P=7 D=8
+[183/330] Pmax<=9 Dmax<=7 status=2 solve=6.1s elapsed=710s -> profit=411 P=6 D=7
+[182/330] Pmax<=9 Dmax<=6 status=2 solve=5.4s elapsed=715s -> profit=411 P=7 D=6
+[181/330] Pmax<=9 Dmax<=5 status=2 solve=6.1s elapsed=721s -> profit=406 P=7 D=5
+[180/330] Pmax<=9 Dmax<=4 status=2 solve=38.6s elapsed=760s -> profit=380 P=7 D=4
+[179/330] Pmax<=9 Dmax<=3 status=2 solve=2.7s elapsed=763s -> profit=265 P=6 D=3
+[178/330] Pmax<=9 Dmax<=2 status=2 solve=0.8s elapsed=763s -> profit=30 P=1 D=2
+[177/330] Pmax<=9 Dmax<=1 status=2 solve=0.0s elapsed=763s -> profit=0 P=0 D=0
+[220/330] Pmax<=10 Dmax<=22 status=2 solve=5.1s elapsed=769s -> profit=413 P=5 D=14
+[211/330] Pmax<=10 Dmax<=13 status=2 solve=12.3s elapsed=781s -> profit=413 P=5 D=11
+[208/330] Pmax<=10 Dmax<=10 status=2 solve=4.1s elapsed=785s -> profit=413 P=6 D=10
+[207/330] Pmax<=10 Dmax<=9 status=2 solve=6.6s elapsed=792s -> profit=413 P=6 D=9
+[206/330] Pmax<=10 Dmax<=8 status=2 solve=6.6s elapsed=798s -> profit=413 P=7 D=8
+[205/330] Pmax<=10 Dmax<=7 status=2 solve=13.2s elapsed=811s -> profit=411 P=6 D=7
+[204/330] Pmax<=10 Dmax<=6 status=2 solve=13.9s elapsed=825s -> profit=411 P=7 D=6
+[203/330] Pmax<=10 Dmax<=5 status=2 solve=16.7s elapsed=842s -> profit=406 P=7 D=5
+[202/330] Pmax<=10 Dmax<=4 status=2 solve=66.5s elapsed=908s -> profit=380 P=7 D=4
+[201/330] Pmax<=10 Dmax<=3 status=2 solve=2.7s elapsed=911s -> profit=265 P=6 D=3
+[200/330] Pmax<=10 Dmax<=2 status=2 solve=0.9s elapsed=912s -> profit=30 P=1 D=2
+[199/330] Pmax<=10 Dmax<=1 status=2 solve=0.0s elapsed=912s -> profit=0 P=0 D=0
+[242/330] Pmax<=11 Dmax<=22 status=2 solve=5.7s elapsed=918s -> profit=413 P=5 D=14
+[233/330] Pmax<=11 Dmax<=13 status=2 solve=11.0s elapsed=929s -> profit=413 P=5 D=11
+[230/330] Pmax<=11 Dmax<=10 status=2 solve=4.0s elapsed=933s -> profit=413 P=6 D=10
+[229/330] Pmax<=11 Dmax<=9 status=2 solve=5.6s elapsed=938s -> profit=413 P=6 D=9
+[228/330] Pmax<=11 Dmax<=8 status=2 solve=5.8s elapsed=944s -> profit=413 P=7 D=8
+[227/330] Pmax<=11 Dmax<=7 status=2 solve=8.7s elapsed=953s -> profit=411 P=7 D=6
+[225/330] Pmax<=11 Dmax<=5 status=2 solve=11.0s elapsed=964s -> profit=406 P=7 D=5
+[224/330] Pmax<=11 Dmax<=4 status=2 solve=83.5s elapsed=1048s -> profit=380 P=7 D=4
+[223/330] Pmax<=11 Dmax<=3 status=2 solve=3.4s elapsed=1051s -> profit=265 P=6 D=3
+[222/330] Pmax<=11 Dmax<=2 status=2 solve=1.4s elapsed=1052s -> profit=30 P=1 D=2
+[221/330] Pmax<=11 Dmax<=1 status=2 solve=0.0s elapsed=1052s -> profit=0 P=0 D=0
+[264/330] Pmax<=12 Dmax<=22 status=2 solve=6.3s elapsed=1059s -> profit=413 P=5 D=14
+[255/330] Pmax<=12 Dmax<=13 status=2 solve=13.9s elapsed=1072s -> profit=413 P=5 D=11
+[252/330] Pmax<=12 Dmax<=10 status=2 solve=4.6s elapsed=1077s -> profit=413 P=6 D=10
+[251/330] Pmax<=12 Dmax<=9 status=2 solve=6.4s elapsed=1083s -> profit=413 P=6 D=9
+[250/330] Pmax<=12 Dmax<=8 status=2 solve=7.0s elapsed=1090s -> profit=413 P=7 D=8
+[249/330] Pmax<=12 Dmax<=7 status=2 solve=9.5s elapsed=1100s -> profit=411 P=7 D=6
+[247/330] Pmax<=12 Dmax<=5 status=2 solve=11.2s elapsed=1111s -> profit=406 P=7 D=5
+[246/330] Pmax<=12 Dmax<=4 status=2 solve=68.4s elapsed=1180s -> profit=380 P=7 D=4
+[245/330] Pmax<=12 Dmax<=3 status=2 solve=1.5s elapsed=1181s -> profit=265 P=6 D=3
+[244/330] Pmax<=12 Dmax<=2 status=2 solve=0.6s elapsed=1182s -> profit=30 P=1 D=2
+[243/330] Pmax<=12 Dmax<=1 status=2 solve=0.0s elapsed=1182s -> profit=0 P=0 D=0
+[286/330] Pmax<=13 Dmax<=22 status=2 solve=2.6s elapsed=1184s -> profit=413 P=5 D=14
+[277/330] Pmax<=13 Dmax<=13 status=2 solve=5.7s elapsed=1190s -> profit=413 P=5 D=11
+[274/330] Pmax<=13 Dmax<=10 status=2 solve=2.1s elapsed=1192s -> profit=413 P=6 D=10
+[273/330] Pmax<=13 Dmax<=9 status=2 solve=2.8s elapsed=1195s -> profit=413 P=6 D=9
+[272/330] Pmax<=13 Dmax<=8 status=2 solve=2.9s elapsed=1198s -> profit=413 P=7 D=8
+[271/330] Pmax<=13 Dmax<=7 status=2 solve=4.4s elapsed=1202s -> profit=411 P=7 D=6
+[269/330] Pmax<=13 Dmax<=5 status=2 solve=5.7s elapsed=1208s -> profit=406 P=7 D=5
+[268/330] Pmax<=13 Dmax<=4 status=2 solve=36.8s elapsed=1245s -> profit=380 P=7 D=4
+[267/330] Pmax<=13 Dmax<=3 status=2 solve=1.5s elapsed=1246s -> profit=265 P=6 D=3
+[266/330] Pmax<=13 Dmax<=2 status=2 solve=0.5s elapsed=1247s -> profit=30 P=1 D=2
+[265/330] Pmax<=13 Dmax<=1 status=2 solve=0.0s elapsed=1247s -> profit=0 P=0 D=0
+[308/330] Pmax<=14 Dmax<=22 status=2 solve=2.6s elapsed=1249s -> profit=413 P=5 D=14
+[299/330] Pmax<=14 Dmax<=13 status=2 solve=5.5s elapsed=1255s -> profit=413 P=5 D=11
+[296/330] Pmax<=14 Dmax<=10 status=2 solve=2.1s elapsed=1257s -> profit=413 P=6 D=10
+[295/330] Pmax<=14 Dmax<=9 status=2 solve=2.7s elapsed=1260s -> profit=413 P=6 D=9
+[294/330] Pmax<=14 Dmax<=8 status=2 solve=2.9s elapsed=1262s -> profit=413 P=7 D=8
+[293/330] Pmax<=14 Dmax<=7 status=2 solve=4.5s elapsed=1267s -> profit=411 P=7 D=6
+[291/330] Pmax<=14 Dmax<=5 status=2 solve=5.7s elapsed=1273s -> profit=406 P=7 D=5
+[290/330] Pmax<=14 Dmax<=4 status=2 solve=37.7s elapsed=1310s -> profit=380 P=7 D=4
+[289/330] Pmax<=14 Dmax<=3 status=2 solve=1.5s elapsed=1312s -> profit=265 P=6 D=3
+[288/330] Pmax<=14 Dmax<=2 status=2 solve=0.5s elapsed=1312s -> profit=30 P=1 D=2
+[287/330] Pmax<=14 Dmax<=1 status=2 solve=0.0s elapsed=1312s -> profit=0 P=0 D=0
+[330/330] Pmax<=15 Dmax<=22 status=2 solve=2.6s elapsed=1315s -> profit=413 P=5 D=14
+[321/330] Pmax<=15 Dmax<=13 status=2 solve=5.5s elapsed=1320s -> profit=413 P=5 D=11
+[318/330] Pmax<=15 Dmax<=10 status=2 solve=2.1s elapsed=1322s -> profit=413 P=6 D=10
+[317/330] Pmax<=15 Dmax<=9 status=2 solve=2.8s elapsed=1325s -> profit=413 P=6 D=9
+[316/330] Pmax<=15 Dmax<=8 status=2 solve=2.9s elapsed=1328s -> profit=413 P=7 D=8
+[315/330] Pmax<=15 Dmax<=7 status=2 solve=4.4s elapsed=1333s -> profit=411 P=7 D=6
+[313/330] Pmax<=15 Dmax<=5 status=2 solve=5.7s elapsed=1338s -> profit=406 P=7 D=5
+[312/330] Pmax<=15 Dmax<=4 status=2 solve=37.7s elapsed=1376s -> profit=380 P=7 D=4
+[311/330] Pmax<=15 Dmax<=3 status=2 solve=1.5s elapsed=1377s -> profit=265 P=6 D=3
+[310/330] Pmax<=15 Dmax<=2 status=2 solve=0.6s elapsed=1378s -> profit=30 P=1 D=2
+[309/330] Pmax<=15 Dmax<=1 status=2 solve=0.0s elapsed=1378s -> profit=0 P=0 D=0
+front: 46 points in 1378.0s
+profit=  413  maxProj/emp=6  maxDuration=8
+profit=  413  maxProj/emp=5  maxDuration=10
+profit=  411  maxProj/emp=7  maxDuration=6
+profit=  411  maxProj/emp=6  maxDuration=7
+profit=  410  maxProj/emp=5  maxDuration=8
+profit=  408  maxProj/emp=6  maxDuration=6
+profit=  406  maxProj/emp=7  maxDuration=5
+profit=  405  maxProj/emp=4  maxDuration=12
+profit=  404  maxProj/emp=4  maxDuration=9
+profit=  403  maxProj/emp=6  maxDuration=5
+profit=  403  maxProj/emp=5  maxDuration=6
+profit=  401  maxProj/emp=4  maxDuration=8
+profit=  389  maxProj/emp=5  maxDuration=5
+profit=  386  maxProj/emp=4  maxDuration=7
+profit=  385  maxProj/emp=4  maxDuration=6
+profit=  382  maxProj/emp=3  maxDuration=12
+profit=  380  maxProj/emp=7  maxDuration=4
+profit=  379  maxProj/emp=3  maxDuration=9
+profit=  374  maxProj/emp=6  maxDuration=4
+profit=  370  maxProj/emp=3  maxDuration=8
+profit=  365  maxProj/emp=4  maxDuration=5
+profit=  356  maxProj/emp=5  maxDuration=4
+profit=  346  maxProj/emp=3  maxDuration=7
+profit=  343  maxProj/emp=3  maxDuration=6
+profit=  331  maxProj/emp=4  maxDuration=4
+profit=  326  maxProj/emp=2  maxDuration=12
+profit=  325  maxProj/emp=2  maxDuration=9
+profit=  322  maxProj/emp=3  maxDuration=5
+profit=  305  maxProj/emp=2  maxDuration=8
+profit=  279  maxProj/emp=3  maxDuration=4
+profit=  265  maxProj/emp=6  maxDuration=3
+profit=  250  maxProj/emp=5  maxDuration=3
+profit=  245  maxProj/emp=2  maxDuration=6
+profit=  232  maxProj/emp=2  maxDuration=5
+profit=  225  maxProj/emp=4  maxDuration=3
+profit=  210  maxProj/emp=2  maxDuration=4
+profit=  195  maxProj/emp=3  maxDuration=3
+profit=  194  maxProj/emp=1  maxDuration=12
+profit=  180  maxProj/emp=1  maxDuration=8
+profit=  155  maxProj/emp=2  maxDuration=3
+profit=  130  maxProj/emp=1  maxDuration=6
+profit=  120  maxProj/emp=1  maxDuration=5
+profit=   90  maxProj/emp=1  maxDuration=4
+profit=   80  maxProj/emp=1  maxDuration=3
+profit=   30  maxProj/emp=1  maxDuration=2
+profit=    0  maxProj/emp=0  maxDuration=0
+wrote m_front.json, m_pareto.png, m_schedule.png
+exit=0
+end 2026-11-25 18:39:17
