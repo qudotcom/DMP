@@ -6,34 +6,40 @@ from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.enums import TA_LEFT
 from reportlab.platypus import (SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle,
-                                Image, PageBreak, Preformatted, KeepTogether)
+                                Image, PageBreak, Preformatted, KeepTogether, HRFlowable)
+from reportlab.pdfgen import canvas as rl_canvas
 from reportlab.lib.utils import ImageReader
 
 proj, figs, out = sys.argv[1], sys.argv[2], sys.argv[3]
 AUTHORS = "Abdelouahed TAHRI, Lucien DESMOULINS, Eric KAMBIRÉ"
+TITLE = "Staffing Collaborators on Projects"
+SUBTITLE = "A multi-objective MILP for CompuOpti — model, code and results"
 
-INK = colors.HexColor("#2b2b29")
-MUTED = colors.HexColor("#6b6b66")
-ACCENT = colors.HexColor("#1c5cab")
-RULE = colors.HexColor("#d9d8d3")
-BAND = colors.HexColor("#f3f2ef")
-NOTE = colors.HexColor("#eef4fc")
+# Same palette as the slides (Stanford-like beamer theme)
+CARDINAL = colors.HexColor("#8C1515")
+SANDSTONE = colors.HexColor("#D2C295")
+COOLGREY = colors.HexColor("#4D4F53")
+FOG = colors.HexColor("#F4F4F4")
+INK = COOLGREY
+MUTED = colors.HexColor("#7A7C80")
+ACCENT = CARDINAL
+RULE = colors.HexColor("#D5D5D5")
+BAND = FOG
 
 ss = getSampleStyleSheet()
 base = dict(fontName="Helvetica", textColor=INK)
 S = {
-    "title": ParagraphStyle("t", parent=ss["Title"], fontName="Helvetica-Bold", fontSize=22,
-                            leading=27, alignment=TA_LEFT, textColor=INK, spaceAfter=4),
     "authors": ParagraphStyle("au", fontName="Helvetica", fontSize=10.5, leading=14.5, textColor=INK,
                               spaceBefore=2, spaceAfter=8),
     "sub": ParagraphStyle("s", fontName="Helvetica", fontSize=10.5, leading=14, textColor=MUTED, spaceAfter=14),
     "h1": ParagraphStyle("h1", fontName="Helvetica-Bold", fontSize=15, leading=19,
-                         textColor=ACCENT, spaceBefore=14, spaceAfter=6),
+                         textColor=ACCENT, spaceBefore=14, spaceAfter=2),
     "h2": ParagraphStyle("h2", fontName="Helvetica-Bold", fontSize=11.5, leading=15,
-                         textColor=INK, spaceBefore=10, spaceAfter=4),
+                         textColor=ACCENT, spaceBefore=10, spaceAfter=4),
     "body": ParagraphStyle("b", **base, fontSize=10, leading=14.2, spaceAfter=6),
     "bullet": ParagraphStyle("bl", **base, fontSize=10, leading=14, leftIndent=14,
-                             bulletIndent=4, spaceAfter=2.5),
+                             bulletIndent=3, bulletFontName="ZapfDingbats", bulletFontSize=5.5,
+                             bulletColor=ACCENT, spaceAfter=2.5),
     "cap": ParagraphStyle("c", fontName="Helvetica", fontSize=8.5, leading=11, textColor=MUTED, spaceAfter=10),
     "cell": ParagraphStyle("cell", **base, fontSize=8.8, leading=11.2),
     "cellb": ParagraphStyle("cellb", fontName="Helvetica-Bold", fontSize=8.8, leading=11.2, textColor=INK),
@@ -41,28 +47,51 @@ S = {
                            backColor=BAND, borderPadding=(6, 6, 6, 6), leftIndent=6, rightIndent=6,
                            spaceBefore=4, spaceAfter=10),
     "math": ParagraphStyle("m", **base, fontSize=10, leading=15, leftIndent=18, spaceAfter=3),
-    "note": ParagraphStyle("n", **base, fontSize=9.5, leading=13.5, backColor=NOTE,
-                           borderPadding=(7, 8, 7, 8), leftIndent=8, rightIndent=8,
-                           spaceBefore=6, spaceAfter=12),
+    "note": ParagraphStyle("n", **base, fontSize=9.5, leading=13.5),
 }
 
-P = lambda t, s="body": KeepTogether([Paragraph(t, S[s])]) if s == "note" else Paragraph(t, S[s])
-B = lambda t: Paragraph(t, S["bullet"], bulletText="•")
+
+def note(t):
+    """Grey box with a cardinal bar on the left, like the slides' blocks."""
+    box = Table([[Paragraph(t, S["note"])]], colWidths=[A4[0] - 4 * cm], hAlign="LEFT")
+    box.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, -1), FOG),
+                             ("LINEBEFORE", (0, 0), (0, -1), 3, CARDINAL),
+                             ("TOPPADDING", (0, 0), (-1, -1), 7), ("BOTTOMPADDING", (0, 0), (-1, -1), 7),
+                             ("LEFTPADDING", (0, 0), (-1, -1), 10), ("RIGHTPADDING", (0, 0), (-1, -1), 10)]))
+    return KeepTogether([Spacer(1, 4), box, Spacer(1, 10)])
+
+
+def heading1(t):
+    """Section title in cardinal with a rule underneath, like the slides' frame titles."""
+    return KeepTogether([Paragraph(t, S["h1"]),
+                         HRFlowable(width="100%", thickness=1.5, color=CARDINAL, spaceBefore=0, spaceAfter=8)])
+
+
+def P(t, s="body"):
+    if s == "note":
+        return note(t)
+    if s == "h1":
+        return heading1(t)
+    return Paragraph(t, S[s])
+
+
+B = lambda t: Paragraph(t, S["bullet"], bulletText="n")  # ZapfDingbats "n" = filled square
 M = lambda t: Paragraph(t, S["math"])
 code = lambda t: Preformatted(t, S["code"])
 
 
 def table(rows, widths, header=True, align_right_from=None):
+    """booktabs-style table: thick top and bottom rules, thin rule under the header."""
     data = [[Paragraph(str(c), S["cellb" if (header and r == 0) else "cell"]) for c in row]
             for r, row in enumerate(rows)]
     t = Table(data, colWidths=widths, hAlign="LEFT", repeatRows=1 if header else 0)
     st = [("VALIGN", (0, 0), (-1, -1), "TOP"),
-          ("LINEBELOW", (0, 0), (-1, 0), 0.8, INK if header else RULE),
-          ("LINEBELOW", (0, 1), (-1, -1), 0.4, RULE),
-          ("TOPPADDING", (0, 0), (-1, -1), 3.5), ("BOTTOMPADDING", (0, 0), (-1, -1), 3.5),
+          ("LINEABOVE", (0, 0), (-1, 0), 1.1, INK),
+          ("LINEBELOW", (0, -1), (-1, -1), 1.1, INK),
+          ("TOPPADDING", (0, 0), (-1, -1), 3), ("BOTTOMPADDING", (0, 0), (-1, -1), 3),
           ("LEFTPADDING", (0, 0), (-1, -1), 5), ("RIGHTPADDING", (0, 0), (-1, -1), 5)]
     if header:
-        st.append(("BACKGROUND", (0, 0), (-1, 0), BAND))
+        st.append(("LINEBELOW", (0, 0), (-1, 0), 0.6, INK))
     t.setStyle(TableStyle(st))
     return t
 
@@ -105,24 +134,59 @@ done, lfront, lcap, lhours = large_status(os.path.join(proj, "large_run.log"))
 lfront = read_front_txt(os.path.join(proj, "large_front.txt"))
 lbest = lfront[0]
 
-# ---------- page decoration ----------
-def on_page(c, doc):
+# ---------- page decoration (same look as the slides) ----------
+BAND_H = 6.2 * cm  # height of the cardinal title band on page 1
+
+
+class NumberedCanvas(rl_canvas.Canvas):
+    """Draws the cardinal footer bar with 'page/total' once the page count is known."""
+
+    def __init__(self, *a, **k):
+        super().__init__(*a, **k)
+        self._pages = []
+
+    def showPage(self):
+        self._pages.append(dict(self.__dict__))
+        self._startPage()
+
+    def save(self):
+        total = len(self._pages)
+        for state in self._pages:
+            self.__dict__.update(state)
+            self.saveState()
+            self.setFillColor(CARDINAL)
+            self.rect(0, 0, A4[0], 0.75 * cm, stroke=0, fill=1)
+            self.setFillColor(colors.white)
+            self.setFont("Helvetica", 8)
+            self.drawString(2 * cm, 0.28 * cm, "CompuOpti Staffing")
+            self.drawRightString(A4[0] - 2 * cm, 0.28 * cm, f"{self._pageNumber}/{total}")
+            self.restoreState()
+            super().showPage()
+        super().save()
+
+
+def on_first_page(c, doc):
+    """Cardinal band with the title in white and the subtitle in sandstone, as on the title slide."""
     c.saveState()
-    c.setFont("Helvetica", 8)
-    c.setFillColor(MUTED)
-    c.drawString(2 * cm, 1.2 * cm, "CompuOpti staffing — model, code and results")
-    c.drawRightString(A4[0] - 2 * cm, 1.2 * cm, f"{doc.page}")
+    c.setFillColor(CARDINAL)
+    c.rect(0, A4[1] - BAND_H, A4[0], BAND_H, stroke=0, fill=1)
+    c.setFillColor(colors.white)
+    c.setFont("Helvetica-Bold", 25)
+    c.drawString(2 * cm, A4[1] - 3.3 * cm, TITLE)
+    c.setFillColor(SANDSTONE)
+    c.setFont("Helvetica", 13)
+    c.drawString(2 * cm, A4[1] - 4.4 * cm, SUBTITLE)
     c.restoreState()
 
 
 doc = SimpleDocTemplate(out, pagesize=A4, leftMargin=2 * cm, rightMargin=2 * cm,
                         topMargin=1.8 * cm, bottomMargin=2 * cm,
-                        title="CompuOpti staffing report", author=AUTHORS)
+                        title=TITLE, author=AUTHORS)
 W = A4[0] - 4 * cm
 st = []
 
 # ---------- title + summary ----------
-st += [P("CompuOpti staffing: model, code and results", "title"),
+st += [Spacer(1, BAND_H - 1.8 * cm + 0.7 * cm),
        P(f"<b>{AUTHORS}</b><br/>CentraleSupélec — Decision Modelling", "authors"),
        P("Who works on which project, on which day — and what are the best trade-offs "
          "between profit, workload spread and project length. All three instances solved (23 November 2026).", "sub")]
@@ -330,7 +394,6 @@ st += [
 ]
 
 # ---------- 4. results ----------
-st.append(PageBreak())
 st.append(P("4. Results", "h1"))
 st.append(P("4.1 Toy instance (3 employees, 5 projects, 5 days)", "h2"))
 st.append(P("Solved in half a second (12 solves). Nine best compromises:"))
@@ -473,5 +536,5 @@ st += [
       f"with every skill, while a B or H specialist adds only +4."),
 ]
 
-doc.build(st, onFirstPage=on_page, onLaterPages=on_page)
+doc.build(st, onFirstPage=on_first_page, canvasmaker=NumberedCanvas)
 print("written", out)
