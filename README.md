@@ -23,6 +23,7 @@ The model is solved exactly with Gurobi. The Pareto front comes from the epsilon
 | `large_run.log` | Progress log of the large run (one line per solve) |
 | `slides.tex` / `slides.pdf` | Defense slides |
 | `staffing_report.pdf`, `build_report.py`, `figs.py` | Written report and the scripts that build it |
+| `bigM_vs_timewindow.tex` / `.pdf` | One-page note (in French): big-M vs time-window formulation |
 
 ## Usage
 

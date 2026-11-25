@@ -1,0 +1,87 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=1.5cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\setlist{nosep,leftmargin=1.2em}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\definecolor{accent}{HTML}{1C5CAB}
+\newcommand{\sect}[1]{\par\medskip{\large\bfseries\color{accent}#1}\par\smallskip}
+\newcommand{\boite}[2]{\fcolorbox{accent!60}{accent!4}{\begin{minipage}[t]{#1}#2\end{minipage}}}
+
+\begin{document}
+
+{\LARGE\bfseries Big-M vs fenêtre temporelle}\\[2pt]
+{\color{black!60}Comment modéliser « le projet $j$ est actif du jour $s_j$ au jour $e_j$ » dans un MILP}\\[-4pt]
+\rule{\linewidth}{0.6pt}
+
+\sect{1. Le besoin}
+Jours $t\in H=\{1,\dots,h\}$. $x_{ijkt}\in\{0,1\}$ : l'employé $i$ travaille sur le projet $j$, compétence $k$, le jour $t$. $y_j\in\{0,1\}$ : projet réalisé.
+Pour chaque projet réalisé, il faut \textbf{(i)} un intervalle $[s_j,e_j]$ qui contient tous ses jours travaillés, \textbf{(ii)} sa durée $d_j=e_j-s_j+1$ (pour $D_{\max}\ge d_j$), \textbf{(iii)} son retard $\max(0,\,e_j-\mathit{due}_j)$.
+La difficulté : la condition « si $x_{ijkt}=1$ alors $s_j\le t\le e_j$ » est une \emph{implication}, pas une contrainte linéaire.
+
+\sect{2. Les deux formulations}
+\boite{0.47\linewidth}{%
+\textbf{Big-M} \hfill {\small dates en nombres}\\[2pt]
+Variables : $s_j,\,e_j\in[1,h]$.
+\begin{align*}
+e_j &\ge t\,x_{ijkt}\\
+s_j &\le t + M\,(1-x_{ijkt}),\qquad M=h\\
+D_{\max} &\ge e_j-s_j+1\\
+r_j &\ge e_j-\mathit{due}_j,\quad r_j\ge 0
+\end{align*}
+Si $x=1$ : $s_j\le t\le e_j$. Si $x=0$ : la contrainte est désactivée par le grand nombre $M$.}
+\hfill
+\boite{0.47\linewidth}{%
+\textbf{Fenêtre temporelle} \hfill {\small indicateurs par jour}\\[2pt]
+$b_{jt},f_{jt}\in\{0,1\}$ : début / fin le jour $t$ ;\; $a_{jt}\in[0,1]$.
+\begin{align*}
+\textstyle\sum_t b_{jt} &= \textstyle\sum_t f_{jt} = y_j\\
+a_{jt} &= \textstyle\sum_{u\le t} b_{ju}-\sum_{u<t} f_{ju}\\
+\textstyle\sum_k x_{ijkt} &\le a_{jt}\\
+D_{\max} &\ge \textstyle\sum_t a_{jt}\\
+r_j &= \textstyle\sum_{t>\mathit{due}_j}(t-\mathit{due}_j)\,f_{jt}
+\end{align*}
+Aucune constante $M$ ; durée = nombre de jours actifs.}
+
+\textbf{Pourquoi la fenêtre est exacte.} $a_{jt}$ vaut (débuts jusqu'à $t$) $-$ (fins avant $t$), donc un entier ; avec $0\le a_{jt}\le1$ :
+$a_{jt}=0$ avant le début, $1$ de $s_j$ à $e_j$, $0$ après. Si la fin précédait le début, on aurait $a_{jt}=-1$, interdit par $a\ge0$ : la borne impose $e_j\ge s_j$.
+$a$ peut donc rester \emph{continue} (pas de branchement inutile).
+
+\sect{3. La vraie différence : la relaxation linéaire}
+Les deux modèles ont \textbf{exactement les mêmes solutions entières}. Ils diffèrent quand Gurobi relâche $x\in\{0,1\}$ en $x\in[0,1]$ pour calculer des bornes : plus la relaxation est proche du vrai optimum, moins il faut brancher.
+
+\textbf{Exemple} ($h=36$) : un travail fractionnaire $x=0.1$ le jour $t=30$.
+\begin{itemize}
+  \item \textbf{Big-M} : $e_j\ge 30\times0.1=3$ et $s_j\le 30+36\times0.9=62.4$. Le projet peut « finir » le jour 3 alors que le travail est le jour 30 : la date est \emph{découplée} du jour travaillé, et la durée et le retard sont sous-estimés.
+  \item \textbf{Fenêtre} : $a_{j,30}\ge0.1$. Le jour 30 doit appartenir à la fenêtre (au moins en partie) et compte dans la durée $\sum_t a_{jt}$ et via $f$ dans le retard. L'information reste \emph{sur le jour lui-même}.
+\end{itemize}
+Plus $M$ est grand, plus le big-M est faible ; la fenêtre n'a pas de $M$.
+
+\sect{4. Mesure sur l'instance large (même optimum dans les deux cas)}
+\begin{center}\small
+\begin{tabular}{lccc}
+\toprule
+Un solve & big-M & fenêtre & résultat\\
+\midrule
+$P_{\max}\le4,\ D_{\max}\le13$ & 644 s & 227 s ($\times2.8$) & profit 726\\
+$P_{\max}\le4,\ D_{\max}\le9$ & 7\,071 s & 251 s ($\times28$) & profit 670\\
+\bottomrule
+\end{tabular}
+\end{center}
+Le gain grandit quand la contrainte de durée se resserre : c'est là que la borne faible du big-M coûte le plus.
+
+\sect{5. À retenir}
+\begin{itemize}
+  \item \textbf{Big-M} : active/désactive une contrainte avec une grande constante. Correct, mais relaxation faible $\Rightarrow$ beaucoup de branchement.
+  \item \textbf{Fenêtre} : décrit l'intervalle jour par jour (début, fin, actif). Plus de variables, mais relaxation plus serrée, retard linéaire exact, et aucune constante à choisir.
+  \item \textbf{Même ensemble de solutions entières} ; seule la vitesse de résolution change : jusqu'à $28\times$ ici.
+\end{itemize}
+
+\end{document}
