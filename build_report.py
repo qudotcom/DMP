@@ -127,12 +127,26 @@ def large_status(path):
     return done, front, cap, hours
 
 
+# The first 100 solves of large_run.log were made with the first (big-M) model, before the run was resumed
+# with the time-window model. A partial re-run with the time-window model on the same 47 limits measured a
+# 5.69x speedup (ratio of total solver times), so the time-window-only estimate scales that part down.
+LARGE_BIGM_SOLVES, LARGE_SPEEDUP = 100, 5.69
+
+
+def large_tw_hours(path):
+    ts = [float(m[1]) for line in open(path, encoding="utf-8", errors="replace")
+          for m in [re.search(r"Pmax<=\d+ Dmax<=\d+ status=\d+ solve=([\d.]+)s", line)] if m]
+    bigm, tw = sum(ts[:LARGE_BIGM_SOLVES]), sum(ts[LARGE_BIGM_SOLVES:])
+    return (bigm / LARGE_SPEEDUP + tw) / 3600, bigm / 3600
+
+
 toy_front = [(65, 3, 2), (65, 2, 3), (59, 4, 1), (55, 2, 2), (49, 3, 1),
              (42, 1, 3), (37, 2, 1), (30, 1, 2), (20, 1, 1)]
 med_front = read_front_txt(os.path.join(proj, "medium_front.txt"))
 done, lfront, lcap, lhours = large_status(os.path.join(proj, "large_run.log"))
 lfront = read_front_txt(os.path.join(proj, "large_front.txt"))
 lbest = lfront[0]
+ltw, lbigm = large_tw_hours(os.path.join(proj, "large_run.log"))
 
 # ---------- page decoration (same look as the slides) ----------
 BAND_H = 6.2 * cm  # height of the cardinal title band on page 1
@@ -209,7 +223,7 @@ st.append(table([
     ["Instance", "Size", "Status", "Best profit found", "Pareto points"],
     ["Toy", "3 staff, 5 projects, 5 days", "Done (0.5 s)", "65 (≤ 3 projects/employee, longest project 2 days)", "9"],
     ["Medium", "5 staff, 15 projects, 22 days", "Done (23 min, 151 solves)", "413 (≤ 6 projects/employee, longest 8 days)", "46"],
-    ["Large", "6 staff, 25 projects, 36 days", f"Done ({len(done)} solves, about {lhours:.0f} h of solver time)",
+    ["Large", "6 staff, 25 projects, 36 days", f"Done ({len(done)} solves, ≈ {ltw:.0f} h estimated with the new model)",
      f"{lbest[0]} (≤ {lbest[1]} projects/employee, longest {lbest[2]} days)",
      f"{len(lfront)}"],
 ], [1.7 * cm, 3.6 * cm, 3.2 * cm, 5.0 * cm, 3.5 * cm]))
@@ -429,8 +443,11 @@ st.append(KeepTogether([img(os.path.join(proj, "medium_schedule.png"), W),
                         P("Figure 3 — Medium instance, most profitable plan (profit 413).", "cap")]))
 
 st.append(P("4.3 Large instance (6 employees, 25 projects, 36 days)", "h2"))
-st.append(P(f"Complete. The sweep covered all 25 workload limits with {len(done)} solves and about {lhours:.0f} hours "
-            f"of solver time (the run was interrupted twice and resumed from its log). The Pareto front has "
+st.append(P(f"Complete. The sweep covered all 25 workload limits with {len(done)} solves. The run was interrupted "
+            f"twice and resumed from its log, and its first {LARGE_BIGM_SOLVES} solves still used the big-M model: "
+            f"the log adds up to {lhours:.0f} h of solver time, {lbigm:.1f} h of it with big-M. Re-solving 47 of "
+            f"those limits with the time-window model was {LARGE_SPEEDUP:.1f}× faster, so the whole sweep with the "
+            f"new model is estimated at about <b>{ltw:.0f} h</b>. The Pareto front has "
             f"<b>{len(lfront)} points</b>. The best profit is <b>{lbest[0]}</b> (the gains of all "
             f"25 projects add up to 1,020)."))
 st.append(KeepTogether([img(os.path.join(figs, "large_front.png"), 0.9 * W),
@@ -455,9 +472,10 @@ st.append(P("The most profitable plan (profit 817, at most 9 projects per employ
 st.append(KeepTogether([img(os.path.join(proj, "large_schedule.png"), W),
                         P("Figure 5 — Large instance, most profitable plan (profit 817): days 1–18 (top) and 19–36 (bottom).",
             "cap")]))
-st.append(P("<b>Run time.</b> Almost all the effort went into limits 3 to 8 (3–7 hours of solving each); the "
-            "hardest single solve (8 projects per employee, 4-day projects) took 3 h 15. From limit 9 on, each "
-            "limit took only about 25 minutes, because those limits no longer constrain the best plans."))
+st.append(P("<b>Run time.</b> With the time-window model, almost all the effort goes into limits 5 to 8 (3–7 hours "
+            "of solving each); the hardest single solve (8 projects per employee, 4-day projects) took 3 h 15. "
+            "Limits 1 to 4 take under 1.5 h each, limit 9 under an hour, and from limit 10 on each limit takes "
+            "only about 25 minutes, because those limits no longer constrain the best plans."))
 
 st.append(P("4.4 Generated instances", "h2"))
 st.append(P("The brief asks for an instance generator to test performance. <b>generate_instance.py</b> writes a "
@@ -475,11 +493,12 @@ st.append(table([
     ["gen3", "4 / 10 / 14 / 6", "73", "90 s", "31", "180, 5, 5"],
     ["gen4", "5 / 12 / 16 / 8", "101", "56 s", "28", "222, 4, 8"],
     ["medium (given)", "5 / 15 / 22 / 10", "151", "23 min", "46", "413, 6, 8"],
-    ["large (given)", "6 / 25 / 36 / 10", "347", "≈ 35 h*", "92", "817, 9, 8"],
+    ["large (given)", "6 / 25 / 36 / 10", "347", f"≈ {ltw:.0f} h*", "92", "817, 9, 8"],
 ], [2.8 * cm, 4.4 * cm, 1.6 * cm, 1.8 * cm, 1.5 * cm, 3.6 * cm]))
 st.append(Spacer(1, 6))
-st.append(P("Times are for the whole sweep on an idle machine with all 8 cores. * Large: cumulated solver time of "
-            "a run that was interrupted and resumed, not wall-clock time.", "cap"))
+st.append(P(f"Times are for the whole sweep on an idle machine with all 8 cores. * Large: estimated solver time with "
+            f"the time-window model (the first {LARGE_BIGM_SOLVES} solves of the run used big-M and are scaled by "
+            f"the measured {LARGE_SPEEDUP:.1f}× speedup); see section 4.3.", "cap"))
 st.append(P("The number of solves grows roughly with projects × days, but the time per solve grows much faster, "
             "and size alone does not decide difficulty: gen4 is bigger than gen3 yet solved faster."))
 st.append(P("<b>Decision space for any point.</b> Every point of the front can be opened as a schedule with "

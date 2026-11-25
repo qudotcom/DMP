@@ -152,10 +152,10 @@ Instance & Size & Run & Best profit & Pareto pts\\
 \midrule
 Toy & 3 staff, 5 proj., 5 days & 0.5 s & 65 \ (P$\le$3, D$\le$2) & 9\\
 Medium & 5 staff, 15 proj., 22 days & 23 min, 151 solves & 413 \ (P$\le$6, D$\le$8) & 46\\
-Large & 6 staff, 25 proj., 36 days & $\approx$35 h$^*$, 347 solves & 817 \ (P$\le$9, D$\le$8) & 92\\
+Large & 6 staff, 25 proj., 36 days & $\approx$29 h$^*$, 347 solves & 817 \ (P$\le$9, D$\le$8) & 92\\
 \bottomrule
 \end{tabular}\\[0.2em]
-{\scriptsize Whole sweep, all 8 cores, idle machine. $^*$Cumulated solver time of a run interrupted and resumed.}
+{\scriptsize Whole sweep, all 8 cores, idle machine. $^*$Estimated with the time-window model: the run's first 100 solves used big-M, scaled by the measured 5.7$\times$ speedup.}
 \vspace{0.6em}
 \begin{itemize}
   \item We obtained \alert{proven optimal} Pareto fronts using Gurobi 13 (academic licence).\\
@@ -279,10 +279,10 @@ gen2 & 4 & 8 & 10 & 5 & 45 & 8.4 s & 17 & 103, 3, 5\\
 gen3 & 4 & 10 & 14 & 6 & 73 & 90 s & 31 & 180, 5, 5\\
 gen4 & 5 & 12 & 16 & 8 & 101 & 56 s & 28 & 222, 4, 8\\
 medium (given) & 5 & 15 & 22 & 10 & 151 & 23 min & 46 & 413, 6, 8\\
-large (given) & 6 & 25 & 36 & 10 & 347 & $\approx$35 h$^*$ & 92 & 817, 9, 8\\
+large (given) & 6 & 25 & 36 & 10 & 347 & $\approx$29 h$^*$ & 92 & 817, 9, 8\\
 \bottomrule
 \end{tabular}\\[0.2em]
-{\scriptsize Time: whole sweep, all 8 cores, idle machine. $^*$Large: cumulated solver time of a run interrupted and resumed.}
+{\scriptsize Time: whole sweep, all 8 cores, idle machine. $^*$Large: estimated with the time-window model (first 100 solves used big-M, scaled by the measured 5.7$\times$).}
 \vspace{0.5em}
 \begin{itemize}
   \item As projects and days increase, we need more solves. The time per solve grows even faster.

@@ -51,6 +51,9 @@ python plot_cubes.py
 | gen3 | 4 / 10 / 14 | 90 s | 31 | 180, 5, 5 |
 | gen4 | 5 / 12 / 16 | 56 s | 28 | 222, 4, 8 |
 | medium | 5 / 15 / 22 | 23 min | 46 | 413, 6, 8 |
-| large | 6 / 25 / 36 | ≈ 35 h of solver time | 92 | 817, 9, 8 |
+| large | 6 / 25 / 36 | ≈ 29 h (estimated*) | 92 | 817, 9, 8 |
 
 In the last column, P is the largest number of projects per employee and D the length of the longest project, in days.
+Times are for the whole sweep on an idle machine with all 8 cores. *The large log adds up to 35 h of solver time, but its
+first 100 solves used the first (big-M) model; re-solving 47 of them with the time-window model was 5.7× faster, so the
+whole sweep with the final model is estimated at about 29 h.

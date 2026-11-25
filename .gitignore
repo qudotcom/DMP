@@ -15,3 +15,5 @@ large_run_before_reboot.log
 *.snm
 *.toc
 *.vrb
+# verification re-run of the large instance
+large_rerun/
