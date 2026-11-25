@@ -143,7 +143,7 @@ st += [
 st.append(Spacer(1, 6))
 st.append(table([
     ["Instance", "Size", "Status", "Best profit found", "Pareto points"],
-    ["Toy", "3 staff, 5 projects, 5 days", "Done (5 s)", "65 (≤ 3 projects/employee, longest project 2 days)", "9"],
+    ["Toy", "3 staff, 5 projects, 5 days", "Done (0.5 s)", "65 (≤ 3 projects/employee, longest project 2 days)", "9"],
     ["Medium", "5 staff, 15 projects, 22 days", "Done (72 min with new model)", "413 (≤ 6 projects/employee, longest 8 days)", "46"],
     ["Large", "6 staff, 25 projects, 36 days", f"Done ({len(done)} solves, about {lhours:.0f} h of solver time)",
      f"{lbest[0]} (≤ {lbest[1]} projects/employee, longest {lbest[2]} days)",
@@ -263,7 +263,7 @@ st.append(table([
     ["Large, α=4, β=13 (one solve)", "644 s", "227 s (2.8× faster)", "profit 726, P=4, D=13"],
     ["Large, α=4, β=9 (one solve)", "7,071 s (1 h 58)", "251 s (28× faster)", "profit 670, P=4, D=9"],
     ["Medium, whole front", "3 h 37 (all cores, 330 solves)", "72 min (2 cores, 144 solves)", "same 46-point front"],
-    ["Toy, whole front", "about 5 s", "a few seconds", "same 9-point front"],
+    ["Toy, whole front", "about 5 s", "0.5 s", "same 9-point front"],
 ], [4.6 * cm, 3.8 * cm, 3.8 * cm, 4.2 * cm]))
 
 # ---------- 3. code ----------
@@ -332,7 +332,7 @@ st += [
 st.append(PageBreak())
 st.append(P("4. Results", "h1"))
 st.append(P("4.1 Toy instance (3 employees, 5 projects, 5 days)", "h2"))
-st.append(P("Solved in 5 seconds. Nine best compromises:"))
+st.append(P("Solved in half a second (12 solves). Nine best compromises:"))
 st.append(table([["Profit", "Max projects / employee", "Longest project (days)"]] +
                 [[p, a, d] for p, a, d in toy_front], [3 * cm, 5 * cm, 5 * cm]))
 st.append(Spacer(1, 8))
