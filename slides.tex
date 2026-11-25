@@ -158,7 +158,7 @@ Large & 6 staff, 25 proj., 36 days & $\approx$35 h, 347 solves & 817 \ (P$\le$9,
 \vspace{1em}
 \begin{itemize}
   \item We obtained \alert{proven optimal} Pareto fronts using Gurobi 13 (academic licence).\\
-  {\footnotesize Each solve stops within Gurobi's 0.01\,\% gap, so the profit is exact (profits are integers). The $\varepsilon$ tie-break can leave $P$, $D$ slightly loose in one solve; the dominance filter removes such points, so the front is exact.}
+  {\footnotesize Profit exact (0.01\,\% gap, integer profits); $P$ and $D$ can be slightly loose in one solve, the dominance filter removes them.}
   \item For the large instance, the best plan completes 17 of 25 projects, out of a total potential gain of 1\,020.
 \end{itemize}
 \end{frame}
@@ -244,12 +244,12 @@ nobody & 413 & --- & 11\\
 \end{tabular}
 \column{0.54\textwidth}
 \small
-\begin{itemize}\setlength{\itemsep}{0.5em}
-  \item We add one employee, available all 22 days, with a single skill, and \alert{re-solve exactly} (a MILP has no meaningful dual prices). 24 solves, 95 s.
-  \item Best hire: a \alert{D specialist}, +52 profit (+12.6\,\%) and 2 more projects, i.e.\ 88\,\% of what a person with all skills would bring.
-  \item B or H: only +4, these skills are not the bottleneck.
-  \item Scarcity alone does not decide: F has a single holder but ranks third.
-  \item Same gains under the best plan's limits ($P\le6$, $D\le8$).
+\begin{itemize}\setlength{\itemsep}{0.35em}
+  \item One extra employee (all 22 days, one skill), then \alert{re-solve exactly}: 24 solves, 95 s.
+  \item Best hire: a \alert{D specialist}, +52 (+12.6\,\%), 2 more projects; 88\,\% of an all-skills person.
+  \item \alert{Gross gain, before salary:} +52 over 22 days $\approx$ 2.4 per day. Hire only if a person-day costs less (projects earn 3.8 per person-day on average).
+  \item B or H: only +4. Scarcity alone does not decide: F has a single holder but ranks third.
+  \item With $P\le6$, $D\le8$ imposed: \alert{identical values}, hence the same ranking.
 \end{itemize}
 \end{columns}
 \end{frame}
@@ -302,11 +302,12 @@ Here we earn \alert{216} with at most 3 projects per employee and a 7-day durati
 \end{frame}
 
 \begin{frame}{Conclusion}
-\begin{itemize}\setlength{\itemsep}{0.7em}
+\begin{itemize}\setlength{\itemsep}{0.4em}
   \item \alert{Exact optimization:} We solved all three given instances and four generated instances with Gurobi.
   \item \alert{Fewer solves:} The jump strategy finds the complete Pareto front (144 instead of 330 solves for the medium instance).
   \item \alert{Faster model:} The time-window formulation makes difficult solves up to 28 times faster.
   \item \alert{Practical trade-offs:} A small reduction in profit can significantly reduce workload or project duration.
+  \item \alert{Decision support:} One more D specialist brings +12.6\,\% profit (+2 projects), worth it if a person-day costs under 2.4.
   \item \alert{Next step:} For larger instances, use time limits per solve or stronger duration bounds.
 \end{itemize}
 \end{frame}

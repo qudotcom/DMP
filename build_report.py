@@ -88,7 +88,7 @@ def table(rows, widths, header=True, align_right_from=None):
     st = [("VALIGN", (0, 0), (-1, -1), "TOP"),
           ("LINEABOVE", (0, 0), (-1, 0), 1.1, INK),
           ("LINEBELOW", (0, -1), (-1, -1), 1.1, INK),
-          ("TOPPADDING", (0, 0), (-1, -1), 3), ("BOTTOMPADDING", (0, 0), (-1, -1), 3),
+          ("TOPPADDING", (0, 0), (-1, -1), 2.5), ("BOTTOMPADDING", (0, 0), (-1, -1), 2.5),
           ("LEFTPADDING", (0, 0), (-1, -1), 5), ("RIGHTPADDING", (0, 0), (-1, -1), 5)]
     if header:
         st.append(("LINEBELOW", (0, 0), (-1, 0), 0.6, INK))
@@ -404,16 +404,16 @@ st.append(Spacer(1, 8))
 st.append(P("The most profitable plan (65) completes Job1, Job3, Job4 and Job5, all on time, and skips Job2. "
             "Olivia works every day on 3 projects; no project lasts more than 2 days; Liam's day-1 and Emma's "
             "day-2 vacations are respected."))
-st.append(img(os.path.join(proj, "toy_schedule.png"), 10 * cm))
-st.append(P("Figure 1 — Toy instance, most profitable plan. Each box is one day of work: project, skill.", "cap"))
+st.append(KeepTogether([img(os.path.join(proj, "toy_schedule.png"), 10 * cm),
+                        P("Figure 1 — Toy instance, most profitable plan. Each box is one day of work: project, skill.", "cap")]))
 
 st.append(P("4.2 Medium instance (5 employees, 15 projects, 22 days)", "h2"))
 st.append(P(f"Complete. The Pareto front has <b>{len(med_front)} points</b>. Each line in Figure 2 is one workload "
             "level; moving right (allowing longer projects) or to a darker line (allowing more projects per "
             "employee) raises the reachable profit, with clearly diminishing returns."))
-st.append(img(os.path.join(figs, "medium_front.png"), W))
-st.append(P("Figure 2 — Medium instance Pareto front: best profit for each limit on project length, one line per "
-            "number of projects per employee.", "cap"))
+st.append(KeepTogether([img(os.path.join(figs, "medium_front.png"), W),
+                        P("Figure 2 — Medium instance Pareto front: best profit for each limit on project length, one line per "
+            "number of projects per employee.", "cap")]))
 top = [p for p in med_front if p[0] > 0][:12]
 st.append(KeepTogether([
     P("The most profitable compromises:"),
@@ -425,17 +425,17 @@ st.append(P("Reading the front: profit 413 is the maximum, reachable either with
             "projects be as short as 5 days, or employees juggle only 4 projects. Below about 4 projects per "
             "employee or 5-day projects, profit drops quickly. The most profitable plan completes 11 of the 15 "
             "projects; three of them finish 1–2 days late."))
-st.append(img(os.path.join(proj, "medium_schedule.png"), W))
-st.append(P("Figure 3 — Medium instance, most profitable plan (profit 413).", "cap"))
+st.append(KeepTogether([img(os.path.join(proj, "medium_schedule.png"), W),
+                        P("Figure 3 — Medium instance, most profitable plan (profit 413).", "cap")]))
 
 st.append(P("4.3 Large instance (6 employees, 25 projects, 36 days)", "h2"))
 st.append(P(f"Complete. The sweep covered all 25 workload limits with {len(done)} solves and about {lhours:.0f} hours "
             f"of solver time (the run was interrupted twice and resumed from its log). The Pareto front has "
             f"<b>{len(lfront)} points</b>. The best profit is <b>{lbest[0]}</b> (the gains of all "
             f"25 projects add up to 1,020)."))
-st.append(img(os.path.join(figs, "large_front.png"), 0.9 * W))
-st.append(P("Figure 4 — Large instance Pareto front: best profit for each limit on project length, one line per "
-            "number of projects per employee.", "cap"))
+st.append(KeepTogether([img(os.path.join(figs, "large_front.png"), 0.9 * W),
+                        P("Figure 4 — Large instance Pareto front: best profit for each limit on project length, one line per "
+            "number of projects per employee.", "cap")]))
 ltop = lfront[:10]
 st.append(KeepTogether([
     P("The most profitable compromises:"),
@@ -452,9 +452,9 @@ st.append(P("Reading the front: profit 817 is the maximum, and it can be reached
             "nothing changes.", "note"))
 st.append(P("The most profitable plan (profit 817, at most 9 projects per employee, longest project 8 days) "
             "completes 17 of the 25 projects."))
-st.append(img(os.path.join(proj, "large_schedule.png"), W))
-st.append(P("Figure 5 — Large instance, most profitable plan (profit 817): days 1–18 (top) and 19–36 (bottom).",
-            "cap"))
+st.append(KeepTogether([img(os.path.join(proj, "large_schedule.png"), W),
+                        P("Figure 5 — Large instance, most profitable plan (profit 817): days 1–18 (top) and 19–36 (bottom).",
+            "cap")]))
 st.append(P("<b>Run time.</b> Almost all the effort went into limits 3 to 8 (3–7 hours of solving each); the "
             "hardest single solve (8 projects per employee, 4-day projects) took 3 h 15. From limit 9 on, each "
             "limit took only about 25 minutes, because those limits no longer constrain the best plans."))
@@ -522,8 +522,18 @@ st.append(P(f"The best hire is a <b>{vtop['new_person']}</b> specialist: +{vtop[
             f"would bring (+{vall['gain_no_limit']}). Skills B and H are worth only +4: they are not the "
             f"bottleneck. The ranking does not simply follow scarcity: F has a single holder but ranks third, "
             f"because the value depends on how skills compete for the same people over the same days."
-            + (f" The gains are identical under the limits of the best plan (at most {vop['caps'][0]} projects "
-               f"per employee, {vop['caps'][1]}-day projects)." if same_caps else "")))
+            + (f" Imposing the limits of the best plan (at most {vop['caps'][0]} projects per employee, "
+               f"{vop['caps'][1]}-day projects) gives exactly the same values for every skill, hence the same "
+               f"ranking." if same_caps else "")))
+vinst = json.load(open(os.path.join(proj, "medium_instance.json")))
+vavg = sum(j["gain"] for j in vinst["jobs"]) / sum(sum(j["working_days_per_qualification"].values())
+                                                   for j in vinst["jobs"])
+st.append(P(f"<b>Cost of the hire.</b> These gains are gross: no salary is counted. The {vtop['new_person']} "
+            f"specialist adds {vtop['gain_no_limit']} over a {vh}-day horizon, i.e. "
+            f"{vtop['gain_no_limit'] / vh:.2f} per day; in the plan found they work {vtop['days_worked']} of the "
+            f"{vh} days ({vtop['gain_no_limit'] / vtop['days_worked']:.2f} per day worked). The hire pays off only "
+            f"if a person-day costs less than that. For comparison, projects earn {vavg:.2f} per person-day on "
+            f"average in this instance."))
 
 # ---------- 5. conclusion ----------
 st.append(P("5. Conclusions and possible next steps", "h1"))
@@ -542,9 +552,10 @@ st += [
       "accepting 2 % less profit allows much shorter projects or a much lighter workload; on the large instance, "
       "about 1 % less profit (808) is enough to keep every employee at 6 projects or fewer (about 3 %, 794, if "
       "projects must also stay within 9 days)."),
-    B(f"Re-solving answers what-if questions too: on the medium instance, one more {vtop['new_person']} "
-      f"specialist is worth +{vtop['gain_no_limit']} profit, close to the +{vall['gain_no_limit']} of a person "
-      f"with every skill, while a B or H specialist adds only +4."),
+    B(f"Decision support: on the medium instance, one more {vtop['new_person']} specialist is worth "
+      f"+{vtop['gain_no_limit']} (+{100 * vtop['gain_no_limit'] / vbase:.1f} %, "
+      f"{vtop['projects_no_limit'] - vop['baseline']['projects_no_limit']} more projects), worth hiring only "
+      f"if a person-day costs under {vtop['gain_no_limit'] / vh:.1f}."),
 ]
 
 doc.build(st, onFirstPage=on_first_page, canvasmaker=NumberedCanvas)

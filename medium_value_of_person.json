@@ -16,6 +16,7 @@
    "profit_no_limit": 454,
    "gain_no_limit": 41,
    "projects_no_limit": 13,
+   "days_worked": 18,
    "profit_caps": 454,
    "gain_caps": 41,
    "projects_caps": 13
@@ -25,6 +26,7 @@
    "profit_no_limit": 450,
    "gain_no_limit": 37,
    "projects_no_limit": 13,
+   "days_worked": 13,
    "profit_caps": 450,
    "gain_caps": 37,
    "projects_caps": 13
@@ -34,6 +36,7 @@
    "profit_no_limit": 431,
    "gain_no_limit": 18,
    "projects_no_limit": 12,
+   "days_worked": 14,
    "profit_caps": 431,
    "gain_caps": 18,
    "projects_caps": 12
@@ -43,6 +46,7 @@
    "profit_no_limit": 465,
    "gain_no_limit": 52,
    "projects_no_limit": 13,
+   "days_worked": 20,
    "profit_caps": 465,
    "gain_caps": 52,
    "projects_caps": 13
@@ -52,6 +56,7 @@
    "profit_no_limit": 459,
    "gain_no_limit": 46,
    "projects_no_limit": 13,
+   "days_worked": 15,
    "profit_caps": 459,
    "gain_caps": 46,
    "projects_caps": 13
@@ -61,6 +66,7 @@
    "profit_no_limit": 428,
    "gain_no_limit": 15,
    "projects_no_limit": 12,
+   "days_worked": 6,
    "profit_caps": 428,
    "gain_caps": 15,
    "projects_caps": 12
@@ -70,6 +76,7 @@
    "profit_no_limit": 417,
    "gain_no_limit": 4,
    "projects_no_limit": 11,
+   "days_worked": 9,
    "profit_caps": 417,
    "gain_caps": 4,
    "projects_caps": 11
@@ -79,6 +86,7 @@
    "profit_no_limit": 445,
    "gain_no_limit": 32,
    "projects_no_limit": 13,
+   "days_worked": 14,
    "profit_caps": 445,
    "gain_caps": 32,
    "projects_caps": 13
@@ -88,6 +96,7 @@
    "profit_no_limit": 417,
    "gain_no_limit": 4,
    "projects_no_limit": 11,
+   "days_worked": 7,
    "profit_caps": 417,
    "gain_caps": 4,
    "projects_caps": 11
@@ -97,6 +106,7 @@
    "profit_no_limit": 428,
    "gain_no_limit": 15,
    "projects_no_limit": 12,
+   "days_worked": 4,
    "profit_caps": 428,
    "gain_caps": 15,
    "projects_caps": 12
@@ -106,6 +116,7 @@
    "profit_no_limit": 472,
    "gain_no_limit": 59,
    "projects_no_limit": 14,
+   "days_worked": 22,
    "profit_caps": 472,
    "gain_caps": 59,
    "projects_caps": 14

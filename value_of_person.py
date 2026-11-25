@@ -17,7 +17,8 @@ from staffing import build, load, take
 
 
 def best_profit(data, pcap=None, dcap=None):
-    """Max profit (ties broken towards small P, D) and number of completed projects."""
+    """Max profit (ties broken towards small P, D), number of completed projects, and the number of
+    days the added employee "New" actually works (0 if there is none)."""
     m, x, y, profit, Pmax, Dmax = build(*data)
     m.setObjective(profit - 1e-3 * (Pmax + Dmax), GRB.MAXIMIZE)
     if pcap is not None:
@@ -25,7 +26,8 @@ def best_profit(data, pcap=None, dcap=None):
         m.addConstr(Dmax <= dcap)
     m.optimize()
     assert m.Status == GRB.OPTIMAL, m.Status
-    return round(profit.getValue()), round(sum(v.X for v in y.values()))
+    new_days = len({t for (i, j, k, t), v in x.items() if i == "New" and v.X > 0.5})
+    return round(profit.getValue()), round(sum(v.X for v in y.values())), new_days
 
 
 def with_new_person(data, skills):
@@ -44,18 +46,19 @@ if __name__ == "__main__":
     data = load(path)
     Q = data[1]
     t0 = time.time()
-    base_free, done_free = best_profit(data)
-    base_caps, done_caps = best_profit(data, pc, dc)
+    base_free, done_free, _ = best_profit(data)
+    base_caps, done_caps, _ = best_profit(data, pc, dc)
     print(f"baseline: profit {base_free} ({done_free} projects) without limits, "
           f"{base_caps} ({done_caps} projects) with P<={pc}, D<={dc}")
     rows = []
     for name, skills in [(k, [k]) for k in Q] + [("all skills", Q)]:
-        p_free, n_free = best_profit(with_new_person(data, skills))
-        p_caps, n_caps = best_profit(with_new_person(data, skills), pc, dc)
+        p_free, n_free, d_free = best_profit(with_new_person(data, skills))
+        p_caps, n_caps, _ = best_profit(with_new_person(data, skills), pc, dc)
         rows.append({"new_person": name, "profit_no_limit": p_free, "gain_no_limit": p_free - base_free,
-                     "projects_no_limit": n_free, "profit_caps": p_caps, "gain_caps": p_caps - base_caps,
-                     "projects_caps": n_caps})
-        print(f"  + {name:<10} no limit: {p_free} (+{p_free - base_free}, {n_free} projects)   "
+                     "projects_no_limit": n_free, "days_worked": d_free,
+                     "profit_caps": p_caps, "gain_caps": p_caps - base_caps, "projects_caps": n_caps})
+        print(f"  + {name:<10} no limit: {p_free} (+{p_free - base_free}, {n_free} projects, "
+              f"new person works {d_free} days)   "
               f"P<={pc}, D<={dc}: {p_caps} (+{p_caps - base_caps}, {n_caps} projects)", flush=True)
     print(f"{2 * len(rows) + 2} solves in {time.time() - t0:.1f}s")
     if out:
